@@ -1,0 +1,1 @@
+module.exports = { jwtSecretKey: 'Android-server-api', }
