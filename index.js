@@ -39,16 +39,16 @@ const userRouter = require('./router/user')
 app.use('/api', userRouter)
 
 // 错误级别中间件
-app.use((err,req,res,next)=>{
+app.use((err, req, res, next) => {
     // 数据验证失败 
     if (err.name === 'ValidationError') return res.cc(err)
     // 捕获身份认证失败的错误 
     if (err.name === 'UnauthorizedError') {
         return res.send({
-          status: 401,
-          message: '无效的token',
+            status: 401,
+            message: '无效的token',
         })
-      }
+    }
     // 未知错误 
     return res.cc(err)
 })
@@ -56,8 +56,8 @@ app.use((err,req,res,next)=>{
 
 
 // 开启服务
-const host = '127.0.0.1'; 
-const port = process.env.PORT || 8888;
+const host = '46.101.60.239';
+const port = process.env.PORT || 88;
 
 
 app.listen(port, host, function () {

@@ -12,13 +12,16 @@ const { user_schema } = require('../schema/user')
 
 
 // 注册新用户
-router.post('/register',expressJoi(user_schema), userHandler.register)
+router.post('/register', expressJoi(user_schema), userHandler.register)
 
 // 登录
 router.post('/login', expressJoi(user_schema), userHandler.login)
 
 // 查询用户
 router.get('/user', userHandler.user)
+
+// 查询用户信息
+router.get('/userInfo', userHandler.userInfo)
 
 //共享
 module.exports = router
