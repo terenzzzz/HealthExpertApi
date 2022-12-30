@@ -19,33 +19,58 @@ router.post('/login', expressJoi(user_schema), userHandler.login)
 
 // 查询用户
 /**
- * @api {get} /user/:id Request User information
- * @apiName GetUser
+ * @api {get} /user User
+ * @apiName user
  * @apiGroup User
  *
- * @apiParam {Number} id Users unique ID.
+ * @apiQuery {Int} idUser Users unique ID.
  *
- * @apiSuccess {String} firstname Firstname of the User.
- * @apiSuccess {String} lastname  Lastname of the User.
+ * @apiSuccess {Int} idUser Users unique ID.
+ * @apiSuccess {String} email  Users Email.
  *
  * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *       "firstname": "John",
- *       "lastname": "Doe"
- *     }
- *
- * @apiError UserNotFound The id of the User was not found.
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
- *     {
- *       "error": "UserNotFound"
- *     }
+ * {
+ *   "status": 200,
+ *   "message": "获取用户基本信息成功！",
+ *   "data": {
+ *       "idUser": 3,
+ *       "email": "2@2.com"
+ *    }
+ * }
  */
 router.get('/user', userHandler.user)
 
 // 查询用户信息
+/**
+ * @api {get} /userInfo UserInfo
+ * @apiName userInfo
+ * @apiGroup User
+ *
+ * @apiQuery {Int} idUser Users unique ID.
+ *
+ * @apiSuccess {Int} idUser Users unique ID.
+ * @apiSuccess {String} Email  Users Email.
+ * @apiSuccess {String} Password  Users Password.
+ * @apiSuccess {String} Name  Users Name.
+ * @apiSuccess {Int} Age  Users Age.
+ * @apiSuccess {Float} Height  Users Height.
+ * @apiSuccess {Float} Weight  Users Weight.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+ *  "status": 200,
+ *  "message": "获取用户详细信息成功！",
+ *    "data": {
+ *       "idUser": 8,
+ *       "Email": "2@qq.com",
+ *       "Password": "$2a$10$9AbBAd2yO4LZVnzG2xuUzOu2sGkBOFdSkwqys6I2gGwhPSI5rBpKW",
+ *      "Name": null,
+ *       "Age": null,
+ *       "Height": null,
+ *       "Weight": null
+ *    }
+ * }
+ */
 router.get('/userInfo', userHandler.userInfo)
 
 //共享
