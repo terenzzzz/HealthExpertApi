@@ -36,7 +36,7 @@ exports.register = (req, res) => {
             if (result.affectedRows !== 1) {
                 res.cc('注册用户失败，请稍后再试')
             }
-            res.send({ status: 0, message: '注册成功' })
+            res.send({ status: 200, message: '注册成功' })
         })
     })
 }
@@ -62,7 +62,7 @@ exports.login = (req, res) => {
             expiresIn: '7d', // token 有效期为 7天 
         })
         res.send({
-            status: 0,
+            status: 200,
             message: '登录成功！',
             idUser: results[0].idUser,
             // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀 
@@ -76,7 +76,7 @@ exports.user = (req, res) => {
     db.query(sqlQuery, req.query.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length !== 1) return res.cc('获取用户基本信息失败！')
-        res.send({ status: 0, message: '获取用户基本信息成功！', data: results[0] })
+        res.send({ status: 200, message: '获取用户基本信息成功！', data: results[0] })
     })
 }
 
@@ -85,6 +85,6 @@ exports.userInfo = (req, res) => {
     db.query(sqlQuery, req.query.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length !== 1) return res.cc('获取用户详细信息失败！')
-        res.send({ status: 0, message: '获取用户详细信息成功！', data: results[0] })
+        res.send({ status: 200, message: '获取用户详细信息成功！', data: results[0] })
     })
 }

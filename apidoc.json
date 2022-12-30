@@ -1,0 +1,12 @@
+{
+    "name": "api-doc",
+    "version": "0.1.0",
+    "description": "Project of HeatheyExpert(Android)",
+    "title": "HeatheyExpert API Doc",
+    "url": "http://terenzzzz.com:88",
+    "sampleUrl": "http://terenzzzz.com:88",
+    "order": [],
+    "template": {
+        "forceLanguage": "zh_cn"
+    }
+}
