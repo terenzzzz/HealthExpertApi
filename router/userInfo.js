@@ -8,7 +8,7 @@ const userInfoHandler = require('../router_handler/userInfo_handler')
 
 // 获取用户信息
 /**
- * @api {get} /userInfo UserInfo
+ * @api {get} /my/userInfo UserInfo
  * @apiName userInfo
  * @apiGroup User
  *

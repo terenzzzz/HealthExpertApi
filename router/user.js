@@ -13,7 +13,7 @@ const { user_schema } = require('../schema/user')
 
 // 注册新用户
 /**
- * @api {post} /register Register
+ * @api {post} /api/register Register
  * @apiName register
  * @apiGroup User
  *
@@ -34,7 +34,7 @@ router.post('/register', expressJoi(user_schema), userHandler.register)
 
 // 登录
 /**
- * @api {post} /login Login
+ * @api {post} /api/login Login
  * @apiName login
  * @apiGroup User
  *
@@ -59,29 +59,6 @@ router.post('/register', expressJoi(user_schema), userHandler.register)
  * }
  */
 router.post('/login', expressJoi(user_schema), userHandler.login)
-
-// 查询用户
-/**
- * @api {get} /user User
- * @apiName user
- * @apiGroup User
- *
- * @apiQuery {Int} idUser Users unique ID.
- *
- * @apiSuccess {Int} idUser Users unique ID.
- * @apiSuccess {String} email  Users Email.
- *
- * @apiSuccessExample Success-Response:
- * {
- *   "status": 200,
- *   "message": "获取用户基本信息成功！",
- *   "data": {
- *       "idUser": 3,
- *       "email": "2@2.com"
- *    }
- * }
- */
-router.get('/user', userHandler.user)
 
 
 //共享
