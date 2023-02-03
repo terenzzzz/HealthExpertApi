@@ -83,37 +83,6 @@ router.post('/login', expressJoi(user_schema), userHandler.login)
  */
 router.get('/user', userHandler.user)
 
-// 查询用户信息
-/**
- * @api {get} /userInfo UserInfo
- * @apiName userInfo
- * @apiGroup User
- *
- * @apiQuery {Int} idUser Users unique ID.
- *
- * @apiSuccess {Int} idUser Users unique ID.
- * @apiSuccess {String} Email  Users Email.
- * @apiSuccess {String} Password  Users Password.
- * @apiSuccess {String} Name  Users Name.
- * @apiSuccess {Int} Age  Users Age.
- * @apiSuccess {Float} Height  Users Height.
- * @apiSuccess {Float} Weight  Users Weight.
- *
- * @apiSuccessExample Success-Response:
- * {
- *  "status": 200,
- *  "message": "获取用户详细信息成功！",
- *    "data": {
- *       "idUser": 8,
- *       "Email": "2@qq.com",
- *       "Password": "$2a$10$9AbBAd2yO4LZVnzG2xuUzOu2sGkBOFdSkwqys6I2gGwhPSI5rBpKW",
- *      "Name": null,
- *       "Age": null,
- *       "Height": null,
- *       "Weight": null
- *    }
- * }
- */
 
 //共享
 module.exports = router
