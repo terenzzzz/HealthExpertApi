@@ -79,12 +79,3 @@ exports.user = (req, res) => {
         res.send({ status: 200, message: '获取用户基本信息成功！', data: results[0] })
     })
 }
-
-exports.userInfo = (req, res) => {
-    const sqlQuery = `select * from User where idUser=?`
-    db.query(sqlQuery, req.query.idUser, (err, results) => {
-        if (err) return res.cc(err)
-        if (results.length !== 1) return res.cc('获取用户详细信息失败！')
-        res.send({ status: 200, message: '获取用户详细信息成功！', data: results[0] })
-    })
-}

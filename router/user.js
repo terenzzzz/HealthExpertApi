@@ -71,7 +71,6 @@ router.get('/user', userHandler.user)
  *    }
  * }
  */
-router.get('/userInfo', userHandler.userInfo)
 
 //共享
 module.exports = router

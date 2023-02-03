@@ -36,7 +36,10 @@ app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ['HS256'] }).unles
 
 //登录模块
 const userRouter = require('./router/user')
+const userInfoRouter = require('./router/userInfo')
 app.use('/api', userRouter)
+app.use('/my', userInfoRouter)
+
 
 // 错误级别中间件
 app.use((err, req, res, next) => {
@@ -54,10 +57,14 @@ app.use((err, req, res, next) => {
 })
 
 
-
+// 部署使用
 // 开启服务
-const host = '46.101.60.239';
+const host = '0.0.0.0';
 const port = process.env.PORT || 88;
+
+//开发使用
+// const host = '127.0.0.1'; 
+// const port = process.env.PORT || 3007;
 
 
 app.listen(port, host, function () {
