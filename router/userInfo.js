@@ -39,9 +39,99 @@ const userInfoHandler = require('../router_handler/userInfo_handler')
  */
 router.get('/userinfo', userInfoHandler.userInfo)
 
+//修改昵称
+/**
+ * @api {post} /my/editName UserInfo
+ * @apiName userInfo
+ * @apiGroup User
+ *
+ * @apiBody {Int} idUser Users unique ID.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新昵称成功"
+ * }
+ */
 router.post('/editName', userInfoHandler.editName)
+
+//修改年龄
+/**
+ * @api {post} /my/editAge UserInfo
+ * @apiName userInfo
+ * @apiGroup User
+ *
+ * @apiBody {Int} idUser Users unique ID.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新年龄成功"
+ * }
+ */
 router.post('/editAge', userInfoHandler.editAge)
+
+//修改昵称
+/**
+ * @api {post} /my/editName UserInfo
+ * @apiName userInfo
+ * @apiGroup User
+ *
+ * @apiBody {Int} idUser Users unique ID.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新昵称成功"
+ * }
+ */
+    router.post('/editName', userInfoHandler.editName)
+
+//修改身高
+/**
+ * @api {post} /my/editHeight UserInfo
+ * @apiName userInfo
+ * @apiGroup User
+ *
+ * @apiBody {Int} idUser Users unique ID.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新身高成功"
+* }
+*/
 router.post('/editHeight', userInfoHandler.editHeight)
+
+//修改体重
+/**
+ * @api {post} /my/editWeight UserInfo
+ * @apiName userInfo
+ * @apiGroup User
+ *
+ * @apiBody {Int} idUser Users unique ID.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新体重成功"
+* }
+*/
 router.post('/editWeight', userInfoHandler.editWeight)
 
 // 向外共享路由对象 

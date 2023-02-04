@@ -7,7 +7,7 @@ exports.userInfo = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length !== 1) return res.cc('获取用户信息失败！')
-        res.send({ status: 0, message: '获取用户基本信息成功！', data: results[0]})
+        res.send({ status: 200, message: '获取用户基本信息成功！', data: results[0]})
     })
 }
 
@@ -17,7 +17,7 @@ exports.editName = (req, res) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
-                status: 0,
+                status: 200,
                 message:'更新昵称成功'
             })
         }
@@ -31,7 +31,7 @@ exports.editAge = (req, res) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
-                status: 0,
+                status: 200,
                 message:'更新年龄成功'
             })
         }
@@ -45,7 +45,7 @@ exports.editHeight = (req, res) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
-                status: 0,
+                status: 200,
                 message:'更新身高成功'
             })
         }
@@ -59,7 +59,7 @@ exports.editWeight = (req, res) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
-                status: 0,
+                status: 200,
                 message:'更新体重成功'
             })
         }
