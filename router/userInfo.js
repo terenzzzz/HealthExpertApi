@@ -40,6 +40,7 @@ const userInfoHandler = require('../router_handler/userInfo_handler')
 router.get('/userinfo', userInfoHandler.userInfo)
 
 router.post('/editName', userInfoHandler.editName)
+router.post('/editAge', userInfoHandler.editAge)
 router.post('/editHeight', userInfoHandler.editHeight)
 router.post('/editWeight', userInfoHandler.editWeight)
 

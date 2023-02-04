@@ -25,6 +25,20 @@ exports.editName = (req, res) => {
     })
 }
 
+exports.editAge = (req, res) => { 
+    const sqlUpdate = `update User set Age = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.age, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 0,
+                message:'更新年龄成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}
+
 exports.editHeight = (req, res) => { 
     const sqlUpdate = `update User set Height = ? where idUser = ?`
     db.query(sqlUpdate, [req.body.height, req.user.idUser], (err, results) => {
