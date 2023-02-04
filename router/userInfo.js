@@ -42,7 +42,6 @@ router.get('/userinfo', userInfoHandler.userInfo)
 //修改昵称
 /**
  * @api {post} /my/editName EditName
- * @apiName userInfo
  * @apiGroup User
  *
  * @apiBody {Int} idUser Users unique ID.
@@ -55,13 +54,12 @@ router.get('/userinfo', userInfoHandler.userInfo)
     "status": 200,
     "message": "更新昵称成功"
  * }
- */
+*/
 router.post('/editName', userInfoHandler.editName)
 
 //修改年龄
 /**
  * @api {post} /my/editAge EditAge
- * @apiName userInfo
  * @apiGroup User
  *
  * @apiBody {Int} idUser Users unique ID.
@@ -74,14 +72,13 @@ router.post('/editName', userInfoHandler.editName)
     "status": 200,
     "message": "更新年龄成功"
  * }
- */
+*/
 router.post('/editAge', userInfoHandler.editAge)
 
 
 //修改身高
 /**
  * @api {post} /my/editHeight EditHeight
- * @apiName userInfo
  * @apiGroup User
  *
  * @apiBody {Int} idUser Users unique ID.
@@ -93,14 +90,13 @@ router.post('/editAge', userInfoHandler.editAge)
  * {
     "status": 200,
     "message": "更新身高成功"
-* }
+ * }
 */
 router.post('/editHeight', userInfoHandler.editHeight)
 
 //修改体重
 /**
  * @api {post} /my/editWeight EditWeight
- * @apiName userInfo
  * @apiGroup User
  *
  * @apiBody {Int} idUser Users unique ID.
@@ -112,7 +108,7 @@ router.post('/editHeight', userInfoHandler.editHeight)
  * {
     "status": 200,
     "message": "更新体重成功"
-* }
+ * }
 */
 router.post('/editWeight', userInfoHandler.editWeight)
 
