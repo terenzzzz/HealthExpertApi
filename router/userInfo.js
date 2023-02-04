@@ -44,7 +44,9 @@ router.get('/userinfo', userInfoHandler.userInfo)
  * @api {post} /my/editName EditName
  * @apiGroup User
  *
- * @apiBody {Int} idUser Users unique ID.
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {String} name New User Name.
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
@@ -61,8 +63,10 @@ router.post('/editName', userInfoHandler.editName)
 /**
  * @api {post} /my/editAge EditAge
  * @apiGroup User
- *
- * @apiBody {Int} idUser Users unique ID.
+ * 
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Int} age New User Age.
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
@@ -80,8 +84,10 @@ router.post('/editAge', userInfoHandler.editAge)
 /**
  * @api {post} /my/editHeight EditHeight
  * @apiGroup User
- *
- * @apiBody {Int} idUser Users unique ID.
+ * 
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Float} height New User Height.
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
@@ -99,7 +105,9 @@ router.post('/editHeight', userInfoHandler.editHeight)
  * @api {post} /my/editWeight EditWeight
  * @apiGroup User
  *
- * @apiBody {Int} idUser Users unique ID.
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Float} weight New User Weight.
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
