@@ -10,3 +10,45 @@ exports.userInfo = (req, res) => {
         res.send({ status: 0, message: '获取用户基本信息成功！', data: results[0]})
     })
 }
+
+exports.editName = (req, res) => { 
+    const sqlUpdate = `update User set Name = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.name, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 0,
+                message:'更新昵称成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}
+
+exports.editHeight = (req, res) => { 
+    const sqlUpdate = `update User set Height = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.height, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 0,
+                message:'更新身高成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}
+
+exports.editWeight = (req, res) => { 
+    const sqlUpdate = `update User set Weight = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.weight, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 0,
+                message:'更新体重成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}

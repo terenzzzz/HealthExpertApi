@@ -39,5 +39,9 @@ const userInfoHandler = require('../router_handler/userInfo_handler')
  */
 router.get('/userinfo', userInfoHandler.userInfo)
 
+router.post('/editName', userInfoHandler.editName)
+router.post('/editHeight', userInfoHandler.editHeight)
+router.post('/editWeight', userInfoHandler.editWeight)
+
 // 向外共享路由对象 
 module.exports = router
