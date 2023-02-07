@@ -66,3 +66,17 @@ exports.editWeight = (req, res) => {
         return res.cc('更新失败')
     })
 }
+
+exports.editGender = (req, res) => { 
+    const sqlUpdate = `update User set Gender = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.gender, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 200,
+                message:'更新性别成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}

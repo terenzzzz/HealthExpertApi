@@ -120,5 +120,7 @@ router.post('/editHeight', userInfoHandler.editHeight)
 */
 router.post('/editWeight', userInfoHandler.editWeight)
 
+router.post('/editGender', userInfoHandler.editGender)
+
 // 向外共享路由对象 
 module.exports = router
