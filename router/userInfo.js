@@ -59,6 +59,26 @@ router.get('/userinfo', userInfoHandler.userInfo)
 */
 router.post('/editName', userInfoHandler.editName)
 
+//修改性别
+/**
+ * @api {post} /my/editGender EditGender
+ * @apiGroup User
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Float} gender New User Gender.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新性别成功"
+ * }
+*/
+router.post('/editGender', userInfoHandler.editGender)
+
 //修改年龄
 /**
  * @api {post} /my/editAge EditAge
@@ -120,10 +140,44 @@ router.post('/editHeight', userInfoHandler.editHeight)
 */
 router.post('/editWeight', userInfoHandler.editWeight)
 
-router.post('/editGender', userInfoHandler.editGender)
-
+//修改BMI
+/**
+ * @api {post} /my/editBmi EditBmi
+ * @apiGroup User
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Float} bmi New User Bmi.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新Bmi成功"
+ * }
+*/
 router.post('/editBmi', userInfoHandler.editBMI)
 
+//修改体脂率
+/**
+ * @api {post} /my/editBodyFatRate EditBodyFatRate
+ * @apiGroup User
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Float} bfr New User BodyFatRate.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新体脂率成功"
+ * }
+*/
 router.post('/editBodyFatRate', userInfoHandler.editBodyFatRate)
 
 // 向外共享路由对象 
