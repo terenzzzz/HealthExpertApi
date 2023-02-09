@@ -62,10 +62,6 @@ app.use((err, req, res, next) => {
 const host = '0.0.0.0';
 const port = process.env.PORT || 88;
 
-//开发使用
-// const host = '127.0.0.1'; 
-// const port = process.env.PORT || 3007;
-
 
 app.listen(port, host, function () {
     console.log('api server running at http://' + host + ':' + port)
