@@ -25,6 +25,20 @@ exports.editName = (req, res) => {
     })
 }
 
+exports.editGender = (req, res) => { 
+    const sqlUpdate = `update User set Gender = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.gender, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 200,
+                message:'更新性别成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}
+
 exports.editAge = (req, res) => { 
     const sqlUpdate = `update User set Age = ? where idUser = ?`
     db.query(sqlUpdate, [req.body.age, req.user.idUser], (err, results) => {
@@ -67,14 +81,28 @@ exports.editWeight = (req, res) => {
     })
 }
 
-exports.editGender = (req, res) => { 
-    const sqlUpdate = `update User set Gender = ? where idUser = ?`
-    db.query(sqlUpdate, [req.body.gender, req.user.idUser], (err, results) => {
+exports.editBMI = (req, res) => { 
+    const sqlUpdate = `update User set Bmi = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.bmi, req.user.idUser], (err, results) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
                 status: 200,
-                message:'更新性别成功'
+                message:'更新Bmi成功'
+            })
+        }
+        return res.cc('更新失败')
+    })
+}
+
+exports.editBodyFatRate = (req, res) => { 
+    const sqlUpdate = `update User set BoddyFatRate = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.bfr, req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 200,
+                message:'更新体脂率成功'
             })
         }
         return res.cc('更新失败')
