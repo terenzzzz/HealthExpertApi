@@ -96,7 +96,7 @@ exports.editBMI = (req, res) => {
 }
 
 exports.editBodyFatRate = (req, res) => { 
-    const sqlUpdate = `update User set BoddyFatRate = ? where idUser = ?`
+    const sqlUpdate = `update User set BodyFatRate = ? where idUser = ?`
     db.query(sqlUpdate, [req.body.bfr, req.user.idUser], (err, results) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
