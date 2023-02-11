@@ -15,13 +15,13 @@ exports.calories = (req, res) => {
 }
 
 exports.caloriesInfo = (req, res) => {
-    const sqlQuery = `select * from Calories where idUser=?`
-    db.query(sqlQuery, req.user.idUser, (err, results) => {
+    const sqlQuery = `select * from Calories where idUser=? and id=?`
+    db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
         if (err) return res.cc(err)
-        if (results.length > 0) {
-            res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results})
+        if (results.length == 1) {
+            res.send({ status: 200, message: '获取卡路里详细信息成功！', data: results})
         } else {
-            return res.cc('获取用户卡路里信息失败！')
+            return res.cc('获取卡路里详细信息失败！')
         }
     })
 }
