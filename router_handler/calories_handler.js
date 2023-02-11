@@ -50,7 +50,7 @@ exports.addCalories = (req, res) => {
     })
 }
 
-exports.editType = (req, res) => { 
+exports.editCaloriesType = (req, res) => { 
     const sqlUpdate = `update Calories set Type = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.type, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
@@ -64,7 +64,7 @@ exports.editType = (req, res) => {
     })
 }
 
-exports.editTitle = (req, res) => { 
+exports.editCaloriesTitle = (req, res) => { 
     const sqlUpdate = `update Calories set Title = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.title, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
@@ -78,7 +78,7 @@ exports.editTitle = (req, res) => {
     })
 }
 
-exports.editContent = (req, res) => { 
+exports.editCaloriesContent = (req, res) => { 
     const sqlUpdate = `update Calories set Content = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.content, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
@@ -92,7 +92,7 @@ exports.editContent = (req, res) => {
     })
 }
 
-exports.editCalories = (req, res) => { 
+exports.editCaloriesCalories = (req, res) => { 
     const sqlUpdate = `update Calories set Calories = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.calories, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
@@ -106,7 +106,25 @@ exports.editCalories = (req, res) => {
     })
 }
 
-exports.editTime = (req, res) => { 
+//修改卡路里记录时间
+/**
+ * @api {post} /my/editCaloriesTime EditCaloriesTime
+ * @apiGroup Calories
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {Float} bfr New User BodyFatRate.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "更新体脂率成功"
+ * }
+*/
+exports.editCaloriesTime = (req, res) => { 
     let time = req.body.time
     let today = new Date();
     let year = today.getFullYear();

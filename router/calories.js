@@ -12,11 +12,11 @@ router.get('/caloriesInfo', caloriesHandler.caloriesInfo)
 
 router.post('/addCalories', caloriesHandler.addCalories)
 
-router.post('/editType', caloriesHandler.editType)
-router.post('/editTitle', caloriesHandler.editTitle)
-router.post('/editContent', caloriesHandler.editContent)
-router.post('/editCalories', caloriesHandler.editCalories)
-router.post('/editTime', caloriesHandler.editTime)
+router.post('/editCaloriesType', caloriesHandler.editCaloriesType)
+router.post('/editCaloriesTitle', caloriesHandler.editCaloriesTitle)
+router.post('/editCaloriesContent', caloriesHandler.editCaloriesContent)
+router.post('/editCaloriesCalories', caloriesHandler.editCaloriesCalories)
+router.post('/editCaloriesTime', caloriesHandler.editCaloriesTime)
 
 //共享
 module.exports = router
