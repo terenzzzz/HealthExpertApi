@@ -8,5 +8,7 @@ const caloriesHandler = require('../router_handler/calories_handler')
 
 router.get('/caloriesInfo', caloriesHandler.caloriesInfo)
 
+router.post('/addCalories', caloriesHandler.addCalories)
+
 //共享
 module.exports = router
