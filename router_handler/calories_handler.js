@@ -106,24 +106,6 @@ exports.editCaloriesCalories = (req, res) => {
     })
 }
 
-//修改卡路里记录时间
-/**
- * @api {post} /my/editCaloriesTime EditCaloriesTime
- * @apiGroup Calories
- *
- * @apiHeader {String} Authorization Users Login AWT Token.
- *  
- * @apiBody {Float} bfr New User BodyFatRate.
- *
- * @apiSuccess {Int} status Respond Status Code.
- * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新体脂率成功"
- * }
-*/
 exports.editCaloriesTime = (req, res) => { 
     let time = req.body.time
     let today = new Date();
