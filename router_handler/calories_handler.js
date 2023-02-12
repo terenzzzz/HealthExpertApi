@@ -125,3 +125,17 @@ exports.editCaloriesTime = (req, res) => {
         return res.cc('更新时间失败')
     })
 }
+
+exports.deleteCalories = (req, res) => { 
+    const sqlDelete = `delete from Calories where idUser = ? and id=?`
+    db.query(sqlDelete, [req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 200,
+                message:'删除记录成功'
+            })
+        }
+        return res.cc('删除记录失败')
+    })
+}

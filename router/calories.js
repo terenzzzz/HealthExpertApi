@@ -203,5 +203,25 @@ router.post('/editCaloriesCalories', caloriesHandler.editCaloriesCalories)
 */
 router.post('/editCaloriesTime', caloriesHandler.editCaloriesTime)
 
+//删除卡路里记录
+/**
+ * @api {post} /my/deleteCalories DeleteCalories
+ * @apiGroup Calories
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {String} id Calories Id.
+ *
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+ * @apiSuccessExample Success-Response:
+ * {
+    "status": 200,
+    "message": "删除记录成功"
+ * }
+*/
+router.post('/deleteCalories', caloriesHandler.deleteCalories)
+
 //共享
 module.exports = router
