@@ -54,10 +54,11 @@ exports.addLocations = (req, res) => {
 
     const sqlInsert = `INSERT INTO TrainingLocations (idTraining,Latitude,Longitude) VALUES ?`
     const locations = JSON.parse(req.body.locations)
-    // console.log(locations);
+    const insertId = req.body.insertId
+    console.log(locations);
     const data = []
     locations.forEach((v,i) => {
-        data.push([1,v.latitude,v.longitude])
+        data.push([insertId,v.latitude,v.longitude])
     });
 
     db.query(sqlInsert, [data], (err, results) => { 
