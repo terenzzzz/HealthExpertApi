@@ -59,7 +59,7 @@ exports.login = (req, res) => {
         const user = { ...results[0], password: '' }
         //生成Token
         const tokenStr = jwt.sign(user, config.jwtSecretKey, {
-            expiresIn: '7d', // token 有效期为 7天 
+            // expiresIn: '7d', // token 有效期为 7天 
         })
         res.send({
             status: 200,
