@@ -34,7 +34,7 @@ exports.addTraining = (req, res) => {
     }, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
-            res.send({ status: 200, message: '添加训练数据成功！'})
+            res.send({ status: 200, message: '添加训练数据成功！', insertId: results.insertId})
         } else {
             return res.cc('添加训练数据失败！')
         }
