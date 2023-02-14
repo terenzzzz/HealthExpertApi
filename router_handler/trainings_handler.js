@@ -14,6 +14,33 @@ exports.trainings = (req, res) => {
     })
 }
 
+exports.addTraining = (req, res) => {
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth()+1;
+    let date = today.getDate();
+    let startTime = year + "-" + (month + 1) + "-" + date + " " + req.body.startTime + ":00"
+    let endTime = year + "-" + (month + 1) + "-" + date + " " + req.body.endTime + ":00"
+    const sqlInsert = `insert into Trainings set ?`
+    db.query(sqlInsert, {
+        idUser: req.user.idUser,
+        Type: req.body.type,
+        Title: req.body.title,
+        Distance: req.body.distance,
+        Speed: req.body.speed,
+        CaloriesBurn: req.body.caloriesBurn,
+        StartTime: startTime,
+        EndTime: endTime,
+    }, function (err, results) {
+        if (err) return res.cc(err)
+        if (results.affectedRows == 1) {
+            res.send({ status: 200, message: '添加训练数据成功！'})
+        } else {
+            return res.cc('添加训练数据失败！')
+        }
+    })
+}
+
 exports.addLocations = (req, res) => { 
     // var locations = [
     //     { latitude: 53.3805467, longitude: -1.4769983 },

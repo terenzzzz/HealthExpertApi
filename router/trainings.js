@@ -8,6 +8,8 @@ const trainingsHandler = require('../router_handler/trainings_handler')
 
 router.get("/trainings", trainingsHandler.trainings)
 
+router.post("/addTraining",trainingsHandler.addTraining)
+
 router.post("/addLocations",trainingsHandler.addLocations)
 
 //共享
