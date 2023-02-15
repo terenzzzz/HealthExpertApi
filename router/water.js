@@ -10,5 +10,19 @@ router.get("/waters", waterHandler.waters)
 
 router.post("/addWaters", waterHandler.addWaters)
 
+router.post('/editWatersType', waterHandler.editWatersType)
+
+router.post('/editWatersTitle', waterHandler.editWatersTitle)
+
+router.post('/editWatersContent', waterHandler.editWatersContent)
+
+router.post('/editWatersValue', waterHandler.editWatersValue)
+
+router.post('/editWatersTime', waterHandler.editWatersTime)
+
+router.post('/deleteWaters', waterHandler.deleteWaters)
+
+
+
 // 向外共享路由对象 
 module.exports = router
