@@ -14,7 +14,11 @@ router.get("/trainingLocation", trainingsHandler.trainingLocation)
 
 router.post("/addTraining",trainingsHandler.addTraining)
 
-router.post("/addLocations",trainingsHandler.addLocations)
+router.post("/addLocations", trainingsHandler.addLocations)
+
+router.post("/deleteTraining", trainingsHandler.deleteTraining)
+
+router.post("/deleteTrainingLocation",trainingsHandler.deleteTrainingLocation)
 
 //共享
 module.exports = router

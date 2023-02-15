@@ -71,10 +71,6 @@ exports.addLocations = (req, res) => {
     //     { latitude: 53.3805467, longitude: -1.4769983 },
     //     { latitude: 53.3805467, longitude: -1.4769983 },
     // ];
-    // var str = JSON.stringify(locations);
-    // var data2 = JSON.parse(str);
-    // console.log(str);
-    // console.log(data2);
     console.log(req.body.locations);
     const sqlInsert = `INSERT INTO TrainingLocations (idTraining,Latitude,Longitude) VALUES ?`
     const locations = JSON.parse(req.body.locations)
@@ -94,5 +90,33 @@ exports.addLocations = (req, res) => {
             })
         }
         return res.cc('定位添加失败')
+    })
+}
+
+exports.deleteTraining = (req, res) => { 
+    const sqlDelete = `delete from Trainings where idUser = ? and id=?`
+    db.query(sqlDelete, [req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows===1){
+            return res.send({
+                status: 200,
+                message:'删除训练记录成功'
+            })
+        }
+        return res.cc('删除训练记录失败')
+    })
+}
+
+exports.deleteTrainingLocation = (req, res) => { 
+    const sqlDelete = `delete from TrainingLocations where idTraining=?`
+    db.query(sqlDelete, req.body.idTraining, (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows>=1){
+            return res.send({
+                status: 200,
+                message:'删除训练定位记录成功'
+            })
+        }
+        return res.cc('删除训练定位失败')
     })
 }
