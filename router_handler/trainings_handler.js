@@ -14,6 +14,30 @@ exports.trainings = (req, res) => {
     })
 }
 
+exports.trainingInfo = (req, res) => {
+    const sqlQuery = `select * from Trainings where idUser=? and id=?`
+    db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length == 1) {
+            res.send({ status: 200, message: '获取训练详细信息成功！', data: results})
+        } else {
+            return res.cc('获取训练详细信息失败！')
+        }
+    })
+}
+
+exports.trainingLocation = (req, res) => {
+    const sqlQuery = `select * from TrainingLocations where idTraining=?`
+    db.query(sqlQuery, req.query.idTraining, (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length > 0) {
+            res.send({ status: 200, message: '获取训练定位信息成功！', data: results})
+        } else {
+            return res.cc('获取训练定位信息失败！')
+        }
+    })
+}
+
 exports.addTraining = (req, res) => {
     let today = new Date();
     let year = today.getFullYear();
