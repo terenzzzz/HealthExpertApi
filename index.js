@@ -40,11 +40,13 @@ const newsRouter = require('./router/news')
 const userInfoRouter = require('./router/userInfo')
 const caloriesRouter = require('./router/calories')
 const trainingsRouter = require('./router/trainings')
+const waterRouter = require('./router/water')
 app.use('/api', userRouter)
 app.use('/api', newsRouter)
 app.use('/my', userInfoRouter)
 app.use('/my', caloriesRouter)
 app.use('/my', trainingsRouter)
+app.use('/my', waterRouter)
 
 
 // 错误级别中间件
