@@ -81,7 +81,7 @@ exports.editWatersContent = (req, res) => {
 
 exports.editWatersValue = (req, res) => { 
     const sqlUpdate = `update Waters set Value = ? where idUser = ? and id=?`
-    db.query(sqlUpdate, [req.body.calories, req.user.idUser, req.body.id], (err, results) => {
+    db.query(sqlUpdate, [req.body.value, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
