@@ -14,6 +14,18 @@ exports.waters = (req, res) => {
     })
 }
 
+exports.watersInfo = (req, res) => {
+    const sqlQuery = `select * from Waters where idUser=? and id=?`
+    db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length == 1) {
+            res.send({ status: 200, message: '获取用户喝水详细信息成功！', data: results})
+        } else {
+            return res.cc('获取用户喝水详细信息失败！')
+        }
+    })
+}
+
 // 添加喝水数据
 exports.addWaters = (req, res) => {
     let time = req.body.time
