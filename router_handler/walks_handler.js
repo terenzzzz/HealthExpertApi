@@ -72,3 +72,46 @@ exports.addWalk = (req, res) => {
         } 
     })
 }
+
+
+// 添加步数数据
+exports.addWalkSteps = (req, res) => {
+    let today = new Date();
+    let year = today.getFullYear();
+    var month = today.getMonth()
+    if (month < 9) {
+        month = month + 1
+        month = `0${month}`
+    }
+    let date = today.getDate();
+    let hours = today.getHours();
+    let minutes = today.getMinutes();
+    let seconds = today.getSeconds();
+
+
+    let time = hours + ":" + minutes + ":" + seconds
+    let fulldate = year + "-" + month + "-" + date
+    let dateTime = year + "-" + month + "-" + date + " " + time// 2023-3-11 08：00
+    
+    console.log(fulldate);
+    const sqlQuery = `select * from Walks where Date="${fulldate}"`
+    db.query(sqlQuery, req.query.idWalk, (err, results) => { 
+        console.log(results.length);
+        if (results.length == 0) {
+            return res.cc('添加行走数据失败！')
+        } else if (results.length == 1) {
+            let recordId = results[0].id
+            const sqlInsert = `insert into WalkSteps set ?`
+            db.query(sqlInsert, {
+                idWalk: recordId, Steps: req.body.steps,Time: dateTime
+            }, function (err, results) {
+                if (err) return res.cc(err)
+                if (results.affectedRows == 1) {
+                    res.send({ status: 200, message: '添加步数数据成功！'})
+                } else {
+                    return res.cc('添加步数数据失败！')
+                }
+            })
+        } 
+    })
+}
