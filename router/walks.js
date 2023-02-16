@@ -11,6 +11,8 @@ router.get("/walks", walksHandler.walks)
 router.get('/walkSteps', walksHandler.walkSteps)
 
 
+router.post('/addWalk', walksHandler.addWalk)
+
 
 
 // 向外共享路由对象 

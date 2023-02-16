@@ -32,7 +32,7 @@ exports.addCalories = (req, res) => {
     let time = req.body.time
     let today = new Date();
     let year = today.getFullYear();
-    let month = today.getMonth()+1;
+    let month = today.getMonth();
     let date = today.getDate();
     let dateTime = year + "-" + (month + 1) + "-" + date + " " + time + ":00"// 2023-3-11 08：00
     console.log(dateTime);
