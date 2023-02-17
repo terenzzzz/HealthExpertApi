@@ -8,6 +8,7 @@ const caloriesHandler = require('../router_handler/calories_handler')
 
 router.get('/caloriesOverall', caloriesHandler.caloriesOverall)
 router.post('/addCaloriesOverall', caloriesHandler.addCaloriesOverall)
+router.post('/subCaloriesOverall', caloriesHandler.subCaloriesOverall)
 
 //获取用户卡路里记录
 /**
