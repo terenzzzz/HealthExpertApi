@@ -45,12 +45,14 @@ exports.updateWalksOverall = (req, res) => {
         } 
         const sqlQuery = `select * from WalkSteps where idUser=? and Date(Time)="${today.toDate()}"`
         db.query(sqlQuery, req.user.idUser, (err, results) => {
-            if(err) return res.cc(err.message)
-            results.forEach(obj => {
-                step += obj.Steps
-                calories += step * 0.04
-                distance += step * 0.0005
-            });
+            if (err) return res.cc(err.message)
+            if (results.length > 0) {
+                results.forEach(obj => {
+                    step += obj.Steps
+                    calories += step * 0.04
+                    distance += step * 0.0005
+                });
+            }
     
             const sqlUpdate = `update WalksOverall set TotalSteps = ?, Calories = ?, 
             Distance = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`

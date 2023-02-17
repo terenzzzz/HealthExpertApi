@@ -34,14 +34,16 @@ exports.updateCaloriesOverall = (req, res) => {
         } 
         const sqlQuery = `select * from Calories where idUser=? and Date(Time)="${today.toDate()}"`
         db.query(sqlQuery, req.user.idUser, (err, results) => {
-            if(err) return res.cc(err.message)
-            results.forEach(obj => {
-                if (obj.Type == "Intake") {
-                    totalIntake = totalIntake + obj.Calories
-                } else {
-                    totalburn = totalburn + obj.Calories
-                }
-            });
+            if (err) return res.cc(err.message)
+            if (results.length > 0) {
+                results.forEach(obj => {
+                    if (obj.Type == "Intake") {
+                        totalIntake = totalIntake + obj.Calories
+                    } else {
+                        totalburn = totalburn + obj.Calories
+                    }
+                });
+            }
             sum = totalIntake - totalburn
             const sqlUpdate = `update CaloriesOverall set Intake = ?, Burn = ?, 
             Sum = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`

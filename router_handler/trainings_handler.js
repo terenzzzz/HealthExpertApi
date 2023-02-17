@@ -35,18 +35,21 @@ exports.updateTrainingOverall = (req, res) => {
         } 
         const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)="${today.toDate()}"`
         db.query(sqlQuery, req.user.idUser, (err, results) => {
-            if(err) return res.cc(err.message)
-            results.forEach(obj => {
-                distance += obj.Distance
-                speed += obj.Speed
-                calories += obj.CaloriesBurn
-                const startTime = new Date(obj.StartTime)
-                const endTime = new Date(obj.EndTime)
-                const duration = endTime.getTime() - startTime.getTime()
-                const durationInMins = Math.round(duration / 60000)
-                totalDuration += durationInMins
-            });
-            speed = speed/results.length
+            if (err) return res.cc(err.message)
+            if (results.length > 0) {
+                results.forEach(obj => {
+                    distance += obj.Distance
+                    speed += obj.Speed
+                    calories += obj.CaloriesBurn
+                    const startTime = new Date(obj.StartTime)
+                    const endTime = new Date(obj.EndTime)
+                    const duration = endTime.getTime() - startTime.getTime()
+                    const durationInMins = Math.round(duration / 60000)
+                    totalDuration += durationInMins
+                });
+                speed = speed/results.length
+            }
+        
             const sqlUpdate = `update TrainingOverall set Distance=?,Speed=?,Calories=?,
             Duration=?,Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
             db.query(sqlUpdate, [distance,speed,calories,totalDuration, req.user.idUser], (err2, res2) => {

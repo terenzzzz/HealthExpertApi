@@ -31,10 +31,12 @@ exports.updateWaterOverall = (req, res) => {
         } 
         const sqlQuery = `select * from Waters where idUser=? and Date(Time)="${today.toDate()}"`
         db.query(sqlQuery, req.user.idUser, (err, results) => {
-            if(err) return res.cc(err.message)
-            results.forEach(obj => {
-                totalDrink = totalDrink + obj.Value
-            });
+            if (err) return res.cc(err.message)
+            if (results.length > 0) {
+                results.forEach(obj => {
+                    totalDrink = totalDrink + obj.Value
+                });
+            }
             const sqlUpdate = `update WaterOverall set Total = ?, Date = "${today.toDateTime()}" 
             where idUser=? and Date(Date) ="${today.toDate()}"`
             db.query(sqlUpdate, [totalDrink, req.user.idUser], (err2, res2) => {
