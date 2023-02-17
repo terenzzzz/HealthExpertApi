@@ -3,7 +3,7 @@ const db = require('../db/index')
 
 // 获取用户当天行走信息数据
 exports.walks = (req, res) => {
-    const sqlQuery = `select * from Walks where idUser=? and Date="${toDate()}"`
+    const sqlQuery = `select * from Walks where idUser=? and Date(Date)="${toDate()}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
@@ -15,9 +15,7 @@ exports.walks = (req, res) => {
 }
 
 exports.walkSteps = (req, res) => {
-    let today = toDate()
-    console.log(today);
-    const sqlQuery = `select * from WalkSteps where Date(Time)="${today}"`
+    const sqlQuery = `select * from WalkSteps where Date(Time)="${toDate()}"`
     db.query(sqlQuery,  (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
