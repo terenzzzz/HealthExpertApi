@@ -6,12 +6,13 @@ const router = express.Router()
 // 导入处理函数
 const walksHandler = require('../router_handler/walks_handler')
 
-router.get("/walks", walksHandler.walks)
+router.get("/walksOverall", walksHandler.walksOverall)
 
 router.get('/walkSteps', walksHandler.walkSteps)
 
 
-router.post('/addWalk', walksHandler.addWalk)
+router.post('/updateWalksOverall', walksHandler.updateWalksOverall)
+// router.post('/addWalk', walksHandler.addWalk)
 
 router.post('/addWalkSteps', walksHandler.addWalkSteps)
 
