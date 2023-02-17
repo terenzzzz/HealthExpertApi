@@ -2,6 +2,19 @@
 const db = require('../db/index')
 const today = require('../utils/today');
 
+// 获取用户卡路里模块数据
+exports.caloriesOverall = (req, res) => {
+    const sqlQuery = `select * from CaloriesOverall where idUser=? and Date(Date)="${today.toDate()}"`
+    db.query(sqlQuery, req.user.idUser, (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length > 0) {
+            res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results[0]})
+        } else {
+            return res.cc('获取用户卡路里信息失败！')
+        }
+    })
+}
+
 // 卡路里汇总数据
 exports.addCaloriesOverall = (req, res) => {
     const sqlQuery = `select * from CaloriesOverall where Date(Date)="${today.toDate()}"`
