@@ -28,8 +28,6 @@ exports.walkSteps = (req, res) => {
 
 // 添加行走数据
 exports.addWalk = (req, res) => {
-
-
     const sqlQuery = `select * from Walks where Date="${toDate()}"`
     db.query(sqlQuery, req.query.idWalk, (err, results) => { 
         console.log(results.length);
@@ -41,7 +39,7 @@ exports.addWalk = (req, res) => {
             const sqlInsert = `insert into Walks set ?`
             db.query(sqlInsert, {
                 idUser: req.user.idUser, TotalSteps: step, Calories: calories,
-                Distance: distance, Date: toDate()
+                Distance: distance, Date: toDateTime()
             }, function (err, res1) {
                 if (err) return res.cc(err)
                 if (res1.affectedRows == 1) {
@@ -57,7 +55,7 @@ exports.addWalk = (req, res) => {
             let calories = parseInt(results[0].Calories) + newStep * 0.04
             let distance = parseFloat(results[0].Distance) + newStep * 0.0005
             const sqlUpdate = `update Walks set TotalSteps = ?,
-                Calories = ?,Distance = ? where Date="${toDate()}"`
+                Calories = ?,Distance = ?,Date = ${toDateTime()} where Date="${toDate()}"`
             db.query(sqlUpdate, [step, calories, distance], (err, res2) => {
                 if(err) return res.cc(err.message)
                 if (res2.affectedRows===1){
