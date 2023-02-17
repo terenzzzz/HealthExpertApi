@@ -21,30 +21,41 @@ exports.updateCaloriesOverall = (req, res) => {
     var totalburn = 0
     var sum = 0
 
-    const sqlQuery = `select * from Calories where idUser=? and Date(Time)="${today.toDate()}"`
-    
-    db.query(sqlQuery, req.user.idUser, (err, results) => {
-        if(err) return res.cc(err.message)
-        results.forEach(obj => {
-            if (obj.Type == "Intake") {
-                totalIntake = totalIntake + obj.Calories
-            } else {
-                totalburn = totalburn + obj.Calories
-            }
-        });
-        sum = totalIntake - totalburn
-        const sqlUpdate = `update CaloriesOverall set Intake = ?, Burn = ?, 
-        Sum = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
-        db.query(sqlUpdate, [totalIntake, totalburn, sum, req.user.idUser], (err2, res2) => {
-            if(err2) return res.cc(err2.message)
-            if (res2.affectedRows===1){
-                return res.send({
-                    status: 200,
-                    message:'更新卡路里汇总数据成功'
-                })
-            }else {
-                return res.cc('添加卡路里汇总数据失败！')
-            }
+    // Check if overallRecord exit
+    const sqlQueryforOverall = `select * from CaloriesOverall where idUser=? and Date(Date)="${today.toDate()}"`
+    db.query(sqlQueryforOverall, req.user.idUser, (err, results) => {
+        if (err) return res.cc(err.message)
+        if (results.length == 0) {
+            const sqlInsert = `insert into CaloriesOverall set ?`
+            db.query(sqlInsert, { idUser: req.user.idUser, Intake: 0, Burn:0, Sum:0, Date: today.toDateTime() },
+                (err, results) => {
+                if(err) return res.cc(err.message)
+            })
+        } 
+        const sqlQuery = `select * from Calories where idUser=? and Date(Time)="${today.toDate()}"`
+        db.query(sqlQuery, req.user.idUser, (err, results) => {
+            if(err) return res.cc(err.message)
+            results.forEach(obj => {
+                if (obj.Type == "Intake") {
+                    totalIntake = totalIntake + obj.Calories
+                } else {
+                    totalburn = totalburn + obj.Calories
+                }
+            });
+            sum = totalIntake - totalburn
+            const sqlUpdate = `update CaloriesOverall set Intake = ?, Burn = ?, 
+            Sum = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
+            db.query(sqlUpdate, [totalIntake, totalburn, sum, req.user.idUser], (err2, res2) => {
+                if(err2) return res.cc(err2.message)
+                if (res2.affectedRows===1){
+                    return res.send({
+                        status: 200,
+                        message:'更新卡路里汇总数据成功'
+                    })
+                }else {
+                    return res.cc('添加卡路里汇总数据失败！')
+                }
+            })
         })
     })
 }
