@@ -6,6 +6,8 @@ const router = express.Router()
 //导入处理函数
 const caloriesHandler = require('../router_handler/calories_handler')
 
+router.post('/addCaloriesOverall', caloriesHandler.addCaloriesOverall)
+
 //获取用户卡路里记录
 /**
  * @api {post} /my/addCalories AddCalories
