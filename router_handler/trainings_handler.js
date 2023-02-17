@@ -2,7 +2,69 @@
 const db = require('../db/index')
 const today = require('../utils/today');
 
-// 获取用户卡路里模块数据
+// 获取训练汇总数据
+exports.trainingOverall = (req, res) => {
+    const sqlQuery = `select * from TrainingOverall where idUser=? and Date(Date)="${today.toDate()}"`
+    db.query(sqlQuery, req.user.idUser, (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length > 0) {
+            res.send({ status: 200, message: '获取训练汇总信息成功！', data: results[0]})
+        } else {
+            return res.cc('获取训练汇总信息失败！')
+        }
+    })
+}
+
+// 更新训练汇总数据
+exports.updateTrainingOverall = (req, res) => {
+    var distance = 0
+    var speed = 0
+    var calories = 0
+    var totalDuration = 0
+
+    // Check if overallRecord exit
+    const sqlQueryforOverall = `select * from TrainingOverall where idUser=? and Date(Date)="${today.toDate()}"`
+    db.query(sqlQueryforOverall, req.user.idUser, (err, results) => {
+        if (err) return res.cc(err.message)
+        if (results.length == 0) {
+            const sqlInsert = `insert into TrainingOverall set ?`
+            db.query(sqlInsert, { idUser: req.user.idUser, Distance: 0, Speed: 0, Calories: 0, Duration: 0, Date: today.toDateTime() },
+                (err, results) => {
+                if(err) return res.cc(err.message)
+            })
+        } 
+        const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)="${today.toDate()}"`
+        db.query(sqlQuery, req.user.idUser, (err, results) => {
+            if(err) return res.cc(err.message)
+            results.forEach(obj => {
+                distance += obj.Distance
+                speed += obj.Speed
+                calories += obj.CaloriesBurn
+                const startTime = new Date(obj.StartTime)
+                const endTime = new Date(obj.EndTime)
+                const duration = endTime.getTime() - startTime.getTime()
+                const durationInMins = Math.round(duration / 60000)
+                totalDuration += durationInMins
+            });
+            speed = speed/results.length
+            const sqlUpdate = `update TrainingOverall set Distance=?,Speed=?,Calories=?,
+            Duration=?,Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
+            db.query(sqlUpdate, [distance,speed,calories,totalDuration, req.user.idUser], (err2, res2) => {
+                if (err2) return res.cc(err2.message)
+                if (res2.affectedRows===1){
+                    return res.send({
+                        status: 200,
+                        message:'更新训练汇总数据成功'
+                    })
+                }else {
+                    return res.cc('更新训练汇总数据失败！')
+                }
+            })
+        })
+    })
+}
+
+// 获取用户训练模块数据
 exports.trainings = (req, res) => {
     const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)="${today.toDate()}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {

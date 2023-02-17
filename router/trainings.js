@@ -6,6 +6,10 @@ const router = express.Router()
 //导入处理函数
 const trainingsHandler = require('../router_handler/trainings_handler')
 
+router.get("/trainingOverall", trainingsHandler.trainingOverall)
+
+router.post("/updateTrainingOverall", trainingsHandler.updateTrainingOverall)
+
 router.get("/trainings", trainingsHandler.trainings)
 
 router.get("/trainingInfo", trainingsHandler.trainingInfo)
