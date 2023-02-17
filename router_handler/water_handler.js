@@ -18,27 +18,39 @@ exports.waterOverall = (req, res) => {
 // 更新喝水汇总数据
 exports.updateWaterOverall = (req, res) => {
     var totalDrink = 0
-
-    const sqlQuery = `select * from Waters where idUser=? and Date(Time)="${today.toDate()}"`
-    db.query(sqlQuery, req.user.idUser, (err, results) => {
-        if(err) return res.cc(err.message)
-        results.forEach(obj => {
-            totalDrink = totalDrink + obj.Value
-        });
-        const sqlUpdate = `update WaterOverall set Total = ?, Date = "${today.toDateTime()}" 
-        where idUser=? and Date(Date) ="${today.toDate()}"`
-        db.query(sqlUpdate, [totalDrink, req.user.idUser], (err2, res2) => {
-            if (err2) return res.cc(err2.message)
-            if (res2.affectedRows===1){
-                return res.send({
-                    status: 200,
-                    message:'更新喝水汇总数据成功'
-                })
-            }else {
-                return res.cc('添加喝水汇总数据失败！')
-            }
+    // Check if overallRecord exit
+    const sqlQueryforOverall = `select * from WaterOverall where idUser=? and Date(Date)="${today.toDate()}"`
+    db.query(sqlQueryforOverall, req.user.idUser, (err, results) => {
+        if (err) return res.cc(err.message)
+        if (results.length == 0) {
+            const sqlInsert = `insert into WaterOverall set ?`
+            db.query(sqlInsert, { idUser: req.user.idUser, Total: 0, Date: today.toDateTime() },
+                (err, results) => {
+                if(err) return res.cc(err.message)
+            })
+        } 
+        const sqlQuery = `select * from Waters where idUser=? and Date(Time)="${today.toDate()}"`
+        db.query(sqlQuery, req.user.idUser, (err, results) => {
+            if(err) return res.cc(err.message)
+            results.forEach(obj => {
+                totalDrink = totalDrink + obj.Value
+            });
+            const sqlUpdate = `update WaterOverall set Total = ?, Date = "${today.toDateTime()}" 
+            where idUser=? and Date(Date) ="${today.toDate()}"`
+            db.query(sqlUpdate, [totalDrink, req.user.idUser], (err2, res2) => {
+                if (err2) return res.cc(err2.message)
+                if (res2.affectedRows===1){
+                    return res.send({
+                        status: 200,
+                        message:'更新喝水汇总数据成功'
+                    })
+                }else {
+                    return res.cc('添加喝水汇总数据失败！')
+                }
+            })
         })
     })
+    
 }
 
 // 获取用户喝水模块数据
