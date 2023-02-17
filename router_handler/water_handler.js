@@ -100,14 +100,8 @@ exports.editWatersValue = (req, res) => {
 }
 
 exports.editWatersTime = (req, res) => { 
-    let time = req.body.time
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth()+1;
-    let date = today.getDate();
-    let dateTime = year + "-" + (month + 1) + "-" + date + " " + time + ":00"// 2023-3-11 08：00
     const sqlUpdate = `update Waters set Time = ? where idUser = ? and id=?`
-    db.query(sqlUpdate, [dateTime, req.user.idUser, req.body.id], (err, results) => {
+    db.query(sqlUpdate, [today.toDateTime(), req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows===1){
             return res.send({
