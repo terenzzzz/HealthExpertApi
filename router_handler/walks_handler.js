@@ -3,8 +3,10 @@ const db = require('../db/index')
 
 // 获取用户当天行走信息数据
 exports.walks = (req, res) => {
-    const sqlQuery = `select * from Walks where idUser=? and date=?`
-    db.query(sqlQuery, [req.user.idUser,req.query.date], (err, results) => {
+    let today = toDate()
+    console.log(today);
+    const sqlQuery = `select * from Walks where idUser=? and Date="${today}"`
+    db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
             res.send({ status: 200, message: '获取用户当天行走信息成功！', data: results[0]})
@@ -15,8 +17,10 @@ exports.walks = (req, res) => {
 }
 
 exports.walkSteps = (req, res) => {
-    const sqlQuery = `select * from WalkSteps where idWalk=?`
-    db.query(sqlQuery, req.query.idWalk, (err, results) => {
+    let today = toDate()
+    console.log(today);
+    const sqlQuery = `select * from WalkSteps where Date(Time)="${today}"`
+    db.query(sqlQuery,  (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
             res.send({ status: 200, message: '获取用户当天行走步数信息成功！', data: results})
@@ -114,4 +118,27 @@ exports.addWalkSteps = (req, res) => {
             })
         } 
     })
+}
+
+function toDate() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1; // getMonth() returns zero-based index, so we need to add 1
+    let day = date.getDate();
+    let mysqlDate = year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+    return mysqlDate
+}
+
+function toDateTime() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1; // getMonth() returns zero-based index, so we need to add 1
+    let day = date.getDate();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    let mysqlDateTime = year + "-" + (month < 10 ? "0" + month : month) +
+        "-" + (day < 10 ? "0" + day : day) + " " + (hours < 10 ? "0" + hours : hours)
+        + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+    return mysqlDateTime
 }
