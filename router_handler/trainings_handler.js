@@ -1,5 +1,6 @@
 // 导入数据库操作模块
 const db = require('../db/index')
+const today = require('../utils/today');
 
 // 获取用户卡路里模块数据
 exports.trainings = (req, res) => {
