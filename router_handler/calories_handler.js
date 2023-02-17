@@ -1,9 +1,10 @@
 // 导入数据库操作模块
 const db = require('../db/index')
+const today = require('../utils/today');
 
 // 获取用户卡路里模块数据
 exports.calories = (req, res) => {
-    const sqlQuery = `select * from Calories where idUser=?`
+    const sqlQuery = `select * from Calories where idUser=? Date(Time)="${today.toDate}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
