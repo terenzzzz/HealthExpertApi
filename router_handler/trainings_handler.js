@@ -3,7 +3,7 @@ const db = require('../db/index')
 
 // 获取用户卡路里模块数据
 exports.trainings = (req, res) => {
-    const sqlQuery = `select * from Trainings where idUser=?`
+    const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)="${today.toDate()}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
@@ -39,12 +39,8 @@ exports.trainingLocation = (req, res) => {
 }
 
 exports.addTraining = (req, res) => {
-    let today = new Date();
-    let year = today.getFullYear();
-    let month = today.getMonth()+1;
-    let date = today.getDate();
-    let startTime = year + "-" + (month + 1) + "-" + date + " " + req.body.startTime + ":00"
-    let endTime = year + "-" + (month + 1) + "-" + date + " " + req.body.endTime + ":00"
+    let startTime = today.toDate() + " " + req.body.startTime + ":00"
+    let endTime = today.toDate() + " " + req.body.endTime + ":00"
     const sqlInsert = `insert into Trainings set ?`
     db.query(sqlInsert, {
         idUser: req.user.idUser,
