@@ -1,9 +1,10 @@
 // 导入数据库操作模块
 const db = require('../db/index')
+const today = require('../utils/today');
 
 // 获取用户喝水模块数据
 exports.waters = (req, res) => {
-    const sqlQuery = `select * from Waters where idUser=?`
+    const sqlQuery = `select * from Waters where idUser=? and Date(Time)="${today.toDate()}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
