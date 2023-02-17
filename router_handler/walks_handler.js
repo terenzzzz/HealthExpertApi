@@ -29,7 +29,7 @@ exports.walkSteps = (req, res) => {
 
 // 添加行走数据
 exports.addWalk = (req, res) => {
-    const sqlQuery = `select * from Walks where Date="${today.toDate()}"`
+    const sqlQuery = `select * from Walks where Date(Date)="${today.toDate()}"`
     db.query(sqlQuery, req.query.idWalk, (err, results) => { 
         console.log(results.length);
         if (results.length == 0) {
