@@ -65,7 +65,7 @@ exports.updateWalksOverall = (req, res) => {
             console.log(`distance: ${distance}`);
             const sqlUpdate = `update WalksOverall set TotalSteps = ?, Calories = ?, 
             Distance = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
-            db.query(sqlUpdate, [step, calories, distance, req.user.idUser], (err2, res2) => {
+            db.query(sqlUpdate, [step, calories, distance.toFixed(2), req.user.idUser], (err2, res2) => {
                 if(err2) return res.cc(err2.message)
                 if (res2.affectedRows===1){
                     return res.send({
