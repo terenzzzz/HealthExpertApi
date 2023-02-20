@@ -10,11 +10,11 @@ exports.walksOverall = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
-            logger.log("获取用户当天行走信息成功！")
-            return res.send({ status: 200, message: '获取用户当天行走信息成功！', data: results[0]})
+            logger.log("获取行走汇总信息成功！")
+            return res.send({ status: 200, message: '获取行走汇总信息成功！', data: results[0]})
         } else {
-            logger.log("获取用户当天行走信息失败！")
-            return res.cc('获取用户当天行走信息失败！')
+            logger.log("获取行走汇总信息失败！")
+            return res.cc('获取行走汇总信息失败！')
         }
     })
 }
