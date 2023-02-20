@@ -2,6 +2,7 @@
 const db = require('../db/index')
 const today = require('../utils/today');
 const metric = require('../utils/metric');
+const logger = require('../utils/logger');
 
 // 获取用户当天行走信息数据
 exports.walksOverall = (req, res) => {
@@ -9,8 +10,10 @@ exports.walksOverall = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
-            res.send({ status: 200, message: '获取用户当天行走信息成功！', data: results[0]})
+            logger.log("获取用户当天行走信息成功！")
+            return res.send({ status: 200, message: '获取用户当天行走信息成功！', data: results[0]})
         } else {
+            logger.log("获取用户当天行走信息失败！")
             return res.cc('获取用户当天行走信息失败！')
         }
     })
@@ -21,8 +24,10 @@ exports.walkSteps = (req, res) => {
     db.query(sqlQuery,req.user.idUser,  (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
+            logger.log("获取用户当天行走步数信息成功！")
             res.send({ status: 200, message: '获取用户当天行走步数信息成功！', data: results})
         } else {
+            logger.log("获取用户当天行走步数信息失败！")
             return res.cc('获取用户当天行走步数信息失败！')
         }
     })
@@ -67,12 +72,14 @@ exports.updateWalksOverall = (req, res) => {
             Distance = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
             db.query(sqlUpdate, [step, calories, distance.toFixed(2), req.user.idUser], (err2, res2) => {
                 if(err2) return res.cc(err2.message)
-                if (res2.affectedRows===1){
+                if (res2.affectedRows === 1) {
+                    logger.log("更新步数汇总数据成功！",req.body)
                     return res.send({
                         status: 200,
                         message:'更新步数汇总数据成功'
                     })
-                }else {
+                } else {
+                    logger.log("添加步数汇总数据失败！",req.body)
                     return res.cc('添加步数汇总数据失败！')
                 }
             })
@@ -87,8 +94,10 @@ exports.addWalkSteps = (req, res) => {
     db.query(sqlInsert, {idUser: req.user.idUser,Steps: req.body.steps,Time: today.toDateTime()}, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
-            res.send({ status: 200, message: '添加步数数据成功！'})
+            logger.log("添加步数数据成功！",req.body)
+            return res.send({ status: 200, message: '添加步数数据成功！'})
         } else {
+            logger.log("添加步数数据失败！",req.body)
             return res.cc('添加步数数据失败！')
         }
     })

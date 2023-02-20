@@ -9,12 +9,12 @@ exports.caloriesOverall = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
-            logger.log("获取卡路里信息成功:", results[0])
-            return res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results[0]})
+            logger.log("获取卡路里汇总数据成功:")
+            return res.send({ status: 200, message: '获取卡路里汇总数据成功！', data: results[0]})
             
         } else {
-            logger.log("获取卡路里信息失败！")
-            return res.cc('获取用户卡路里信息失败！')
+            logger.log("获取卡路里汇总数据失败！")
+            return res.cc('获取卡路里汇总数据失败！')
             
         }
     })
@@ -55,7 +55,7 @@ exports.updateCaloriesOverall = (req, res) => {
             db.query(sqlUpdate, [totalIntake, totalburn, sum, req.user.idUser], (err2, res2) => {
                 if(err2) return res.cc(err2.message)
                 if (res2.affectedRows === 1) {
-                    logger.log("更新卡路里汇总数据成功:", req.body)
+                    logger.log("更新卡路里汇总数据成功:")
                     return res.send({
                         status: 200,
                         message:'更新卡路里汇总数据成功'
@@ -76,7 +76,7 @@ exports.calories = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
-            logger.log("获取用户卡路里信息成功:", results)
+            logger.log("获取用户卡路里信息成功:")
             res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results})
         } else {
             logger.log("获取用户卡路里信息失败！")
@@ -91,7 +91,7 @@ exports.caloriesInfo = (req, res) => {
     db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
-            logger.log("获取卡路里详细信息成功:", results)
+            logger.log("获取卡路里详细信息成功:", req.query)
             res.send({ status: 200, message: '获取卡路里详细信息成功！', data: results})
         } else {
             logger.log("获取卡路里详细信息失败！")

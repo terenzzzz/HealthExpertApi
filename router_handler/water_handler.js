@@ -1,6 +1,8 @@
 // 导入数据库操作模块
 const db = require('../db/index')
 const today = require('../utils/today');
+const logger = require('../utils/logger');
+
 
 // 获取喝水汇总数据
 exports.waterOverall = (req, res) => {
@@ -8,8 +10,10 @@ exports.waterOverall = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
+            logger.log("获取喝水汇总信息成功！")
             res.send({ status: 200, message: '获取喝水汇总信息成功！', data: results[0]})
         } else {
+            logger.log("获取喝水汇总信息失败！")
             return res.cc('获取喝水汇总信息失败！')
         }
     })
@@ -41,12 +45,14 @@ exports.updateWaterOverall = (req, res) => {
             where idUser=? and Date(Date) ="${today.toDate()}"`
             db.query(sqlUpdate, [totalDrink, req.user.idUser], (err2, res2) => {
                 if (err2) return res.cc(err2.message)
-                if (res2.affectedRows===1){
+                if (res2.affectedRows === 1) {
+                    logger.log("更新喝水汇总数据成功！")
                     return res.send({
                         status: 200,
                         message:'更新喝水汇总数据成功'
                     })
-                }else {
+                } else {
+                    logger.log("更新喝水汇总数据失败！")
                     return res.cc('添加喝水汇总数据失败！')
                 }
             })
@@ -60,8 +66,10 @@ exports.waters = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
+            logger.log("获取用户喝水信息成功！")
             res.send({ status: 200, message: '获取用户喝水信息成功！', data: results})
         } else {
+            logger.log("获取用户喝水信息失败！")
             return res.cc('获取用户喝水信息失败！')
         }
     })
@@ -72,8 +80,10 @@ exports.watersInfo = (req, res) => {
     db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
-            res.send({ status: 200, message: '获取用户喝水详细信息成功！', data: results})
+            logger.log("获取用户喝水详细信息成功！")
+            return res.send({ status: 200, message: '获取用户喝水详细信息成功！', data: results})
         } else {
+            logger.log("获取用户喝水详细信息失败！")
             return res.cc('获取用户喝水详细信息失败！')
         }
     })
@@ -88,8 +98,10 @@ exports.addWaters = (req, res) => {
     }, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
-            res.send({ status: 200, message: '添加喝水数据成功！'})
+            logger.log("添加喝水数据成功！",req.body)
+            return res.send({ status: 200, message: '添加喝水数据成功！'})
         } else {
+            logger.log("添加喝水数据成功！",req.body)
             return res.cc('添加喝水数据失败！')
         }
     })
@@ -99,13 +111,15 @@ exports.editWatersType = (req, res) => {
     const sqlUpdate = `update Waters set Type = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.type, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新喝水类型成功！", req.body)
             return res.send({
                 status: 200,
-                message:'更新类型成功'
+                message:'更新喝水类型成功'
             })
         }
-        return res.cc('更新类型失败')
+        logger.log("添加喝水类型成功！", req.body)
+        return res.cc('更新喝水类型失败')
     })
 }
 
@@ -113,13 +127,15 @@ exports.editWatersTitle = (req, res) => {
     const sqlUpdate = `update Waters set Title = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.title, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新喝水标题成功！", req.body)
             return res.send({
                 status: 200,
-                message:'更新标题成功'
+                message:'更新喝水标题成功'
             })
         }
-        return res.cc('更新标题失败')
+        logger.log("更新喝水标题失败！", req.body)
+        return res.cc('更新喝水标题失败')
     })
 }
 
@@ -127,13 +143,15 @@ exports.editWatersContent = (req, res) => {
     const sqlUpdate = `update Waters set Content = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.content, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新喝水内容成功！", req.body)
             return res.send({
                 status: 200,
-                message:'更新内容成功'
+                message:'更新喝水内容成功'
             })
         }
-        return res.cc('更新内容失败')
+        logger.log("更新喝水内容失败！", req.body)
+        return res.cc('更新喝水内容失败')
     })
 }
 
@@ -141,13 +159,15 @@ exports.editWatersValue = (req, res) => {
     const sqlUpdate = `update Waters set Value = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.value, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新喝水数值成功！", req.body)
             return res.send({
                 status: 200,
-                message:'更新数值成功'
+                message:'更新喝水数值成功'
             })
         }
-        return res.cc('更新数值失败')
+        logger.log("更新喝水数值成功！", req.body)
+        return res.cc('更新喝水数值失败')
     })
 }
 
@@ -161,13 +181,15 @@ exports.editWatersTime = (req, res) => {
     const sqlUpdate = `update Waters set Time = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [dateTime, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新喝水时间成功！", req.body)
             return res.send({
                 status: 200,
-                message:'更新时间成功'
+                message:'更新喝水时间成功'
             })
         }
-        return res.cc('更新时间失败')
+        logger.log("更新喝水时间成功！", req.body)
+        return res.cc('更新喝水时间失败')
     })
 }
 
@@ -175,12 +197,14 @@ exports.deleteWaters = (req, res) => {
     const sqlDelete = `delete from Waters where idUser = ? and id=?`
     db.query(sqlDelete, [req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("删除喝水记录成功！", req.body)
             return res.send({
                 status: 200,
-                message:'删除记录成功'
+                message:'删除喝水记录成功'
             })
         }
-        return res.cc('删除记录失败')
+        logger.log("删除喝水记录失败！", req.body)
+        return res.cc('删除喝水记录失败')
     })
 }
