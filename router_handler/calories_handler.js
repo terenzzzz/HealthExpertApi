@@ -1,23 +1,19 @@
 // 导入数据库操作模块
 const db = require('../db/index')
 const today = require('../utils/today');
+const logger = require('../utils/logger');
 
 // 获取用户卡路里模块数据
 exports.caloriesOverall = (req, res) => {
     const sqlQuery = `select * from CaloriesOverall where idUser=? and Date(Date)="${today.toDate()}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
-        if (results.length > 0) {
-            console.log("==============================");
-            console.log("获取卡路里信息成功:");
-            console.log(results[0]);
-            console.log("==============================");
+        if (results.length >= 0) {
+            logger.log("获取卡路里信息成功:", results[0])
             return res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results[0]})
             
         } else {
-            console.log("==============================");
-            console.log("获取卡路里信息失败");
-            console.log("==============================");
+            logger.log("获取卡路里信息失败！")
             return res.cc('获取用户卡路里信息失败！')
             
         }
@@ -58,12 +54,14 @@ exports.updateCaloriesOverall = (req, res) => {
             Sum = ?, Date = "${today.toDateTime()}" where idUser=? and Date(Date) ="${today.toDate()}"`
             db.query(sqlUpdate, [totalIntake, totalburn, sum, req.user.idUser], (err2, res2) => {
                 if(err2) return res.cc(err2.message)
-                if (res2.affectedRows===1){
+                if (res2.affectedRows === 1) {
+                    logger.log("更新卡路里汇总数据成功:", req.body)
                     return res.send({
                         status: 200,
                         message:'更新卡路里汇总数据成功'
                     })
-                }else {
+                } else {
+                    logger.log("更新卡路里汇总数据失败！")
                     return res.cc('添加卡路里汇总数据失败！')
                 }
             })
@@ -77,9 +75,11 @@ exports.calories = (req, res) => {
     const sqlQuery = `select * from Calories where idUser=? and Date(Time)="${today.toDate()}"`
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
-        if (results.length > 0) {
+        if (results.length >= 0) {
+            logger.log("获取用户卡路里信息成功:", results)
             res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results})
         } else {
+            logger.log("获取用户卡路里信息失败！")
             return res.cc('获取用户卡路里信息失败！')
         }
     })
@@ -91,8 +91,10 @@ exports.caloriesInfo = (req, res) => {
     db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
         if (err) return res.cc(err)
         if (results.length == 1) {
+            logger.log("获取卡路里详细信息成功:", results)
             res.send({ status: 200, message: '获取卡路里详细信息成功！', data: results})
         } else {
+            logger.log("获取卡路里详细信息失败！")
             return res.cc('获取卡路里详细信息失败！')
         }
     })
@@ -114,8 +116,10 @@ exports.addCalories = (req, res) => {
     }, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
+            logger.log("添加卡路里数据成功:", req.body)
             res.send({ status: 200, message: '添加卡路里数据成功！'})
         } else {
+            logger.log("添加卡路里数据失败", req.body)
             return res.cc('添加卡路里数据失败！')
         }
     })
@@ -125,12 +129,14 @@ exports.editCaloriesType = (req, res) => {
     const sqlUpdate = `update Calories set Type = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.type, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新卡路里类型成功:", req.body)
             return res.send({
                 status: 200,
-                message:'更新类型成功'
+                message:'更新卡路里类型成功'
             })
         }
+        logger.log("更新卡路里类型失败", req.body)
         return res.cc('更新类型失败')
     })
 }
@@ -139,12 +145,14 @@ exports.editCaloriesTitle = (req, res) => {
     const sqlUpdate = `update Calories set Title = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.title, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新卡路里标题成功:", req.body)
             return res.send({
                 status: 200,
-                message:'更新标题成功'
+                message:'更新卡路里标题成功'
             })
         }
+        logger.log("更新卡路里标题失败:", req.body)
         return res.cc('更新标题失败')
     })
 }
@@ -153,12 +161,14 @@ exports.editCaloriesContent = (req, res) => {
     const sqlUpdate = `update Calories set Content = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.content, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新卡路里内容成功:", req.body)
             return res.send({
                 status: 200,
-                message:'更新内容成功'
+                message:'更新卡路里内容成功'
             })
         }
+        logger.log("更新卡路里内容失败:", req.body)
         return res.cc('更新内容失败')
     })
 }
@@ -167,12 +177,14 @@ exports.editCaloriesCalories = (req, res) => {
     const sqlUpdate = `update Calories set Calories = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.calories, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新卡路里数值成功:", req.body)
             return res.send({
                 status: 200,
                 message:'更新卡路里数值成功'
             })
         }
+        logger.log("更新卡路里数值失败:", req.body)
         return res.cc('更新卡路里数值失败')
     })
 }
@@ -187,12 +199,14 @@ exports.editCaloriesTime = (req, res) => {
     const sqlUpdate = `update Calories set Time = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [dateTime, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("更新时间成功:", dateTime)
             return res.send({
                 status: 200,
                 message:'更新时间成功'
             })
         }
+        logger.log("更新时间失败:", req.body)
         return res.cc('更新时间失败')
     })
 }
@@ -201,12 +215,14 @@ exports.deleteCalories = (req, res) => {
     const sqlDelete = `delete from Calories where idUser = ? and id=?`
     db.query(sqlDelete, [req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
-        if (results.affectedRows===1){
+        if (results.affectedRows === 1) {
+            logger.log("删除记录成功:", req.body)
             return res.send({
                 status: 200,
                 message:'删除记录成功'
             })
         }
+        logger.log("删除记录失败:", req.body)
         return res.cc('删除记录失败')
     })
 }
