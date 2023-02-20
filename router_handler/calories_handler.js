@@ -8,9 +8,18 @@ exports.caloriesOverall = (req, res) => {
     db.query(sqlQuery, req.user.idUser, (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
-            res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results[0]})
+            console.log("==============================");
+            console.log("获取卡路里信息成功:");
+            console.log(results[0]);
+            console.log("==============================");
+            return res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results[0]})
+            
         } else {
+            console.log("==============================");
+            console.log("获取卡路里信息失败");
+            console.log("==============================");
             return res.cc('获取用户卡路里信息失败！')
+            
         }
     })
 }
