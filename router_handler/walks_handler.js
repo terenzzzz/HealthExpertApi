@@ -9,7 +9,7 @@ exports.walksOverall = (req, res) => {
     const sqlQuery = `select * from WalksOverall where idUser=? and Date(Date)=?`
     db.query(sqlQuery, [req.user.idUser, req.query.date], (err, results) => {
         if (err) return res.cc(err)
-        if (results.length == 1) {
+        if (results.length >= 0) {
             logger.log("获取行走汇总信息成功！", req.query.date)
             return res.send({ status: 200, message: '获取行走汇总信息成功！', data: results[0]})
         } else {

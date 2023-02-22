@@ -9,7 +9,7 @@ exports.waterOverall = (req, res) => {
     const sqlQuery = `select * from WaterOverall where idUser=? and Date(Date)=?`
     db.query(sqlQuery, [req.user.idUser, req.query.date], (err, results) => {
         if (err) return res.cc(err)
-        if (results.length > 0) {
+        if (results.length >= 0) {
             logger.log("获取喝水汇总信息成功！", req.query.date)
             res.send({ status: 200, message: '获取喝水汇总信息成功！', data: results[0]})
         } else {

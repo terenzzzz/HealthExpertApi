@@ -8,7 +8,7 @@ exports.caloriesOverall = (req, res) => {
     const sqlQuery = `select * from CaloriesOverall where idUser=? and Date(Date)=?`
     db.query(sqlQuery, [req.user.idUser, req.query.date], (err, results) => {
         if (err) return res.cc(err)
-        if (results.length > 0) {
+        if (results.length >= 0) {
             logger.log("获取卡路里汇总数据成功:", req.query.date)
             return res.send({ status: 200, message: '获取卡路里汇总数据成功！', data: results[0]})
             
