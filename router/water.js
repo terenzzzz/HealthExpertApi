@@ -7,6 +7,7 @@ const router = express.Router()
 const waterHandler = require('../router_handler/water_handler')
 
 router.get('/waterOverall', waterHandler.waterOverall)
+
 router.post('/updateWaterOverall', waterHandler.updateWaterOverall)
 
 router.get("/waters", waterHandler.waters)

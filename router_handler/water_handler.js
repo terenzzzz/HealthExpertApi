@@ -36,6 +36,9 @@ exports.updateWaterOverall = (req, res) => {
         const sqlQuery = `select * from Waters where idUser=? and Date(Time)="${today.toDate()}"`
         db.query(sqlQuery, req.user.idUser, (err, results) => {
             if (err) return res.cc(err.message)
+            console.log(results.length);
+            console.log(results);
+            
             if (results.length > 0) {
                 results.forEach(obj => {
                     totalDrink = totalDrink + obj.Value
@@ -175,7 +178,7 @@ exports.editWatersTime = (req, res) => {
     let time = req.body.time
     let today = new Date();
     let year = today.getFullYear();
-    let month = today.getMonth()+1;
+    let month = today.getMonth();
     let date = today.getDate();
     let dateTime = year + "-" + (month + 1) + "-" + date + " " + time + ":00"// 2023-3-11 08：00
     const sqlUpdate = `update Waters set Time = ? where idUser = ? and id=?`
