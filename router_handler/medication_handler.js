@@ -40,7 +40,7 @@ exports.addMedication = (req, res) => {
     const sqlInsert = `insert into Medication set ?`
     db.query(sqlInsert, {
         idUser: req.user.idUser, Type: req.body.type, Name: req.body.name,
-        Dose: req.body.dose, Date: req.body.date, Status: "Pending"
+        Dose: req.body.dose, Date: req.body.date, Status: 0
     }, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
@@ -50,5 +50,37 @@ exports.addMedication = (req, res) => {
             logger.log("添加药物数据失败", req.body)
             return res.cc('添加药物数据失败！')
         }
+    })
+}
+
+exports.editMedicationStatus = (req, res) => { 
+    const sqlUpdate = `update Medication set Status = ? where idUser = ? and id=?`
+    db.query(sqlUpdate, [req.body.status, req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新药物数据成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新药物数据成功'
+            })
+        }
+        logger.log("更新药物数据失败", req.body)
+        return res.cc('更新药物数据失败')
+    })
+}
+
+exports.deleteMedication = (req, res) => { 
+    const sqlDelete = `delete from Medication where idUser = ? and id=?`
+    db.query(sqlDelete, [req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("删除记录成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'删除记录成功'
+            })
+        }
+        logger.log("删除记录失败:", req.body)
+        return res.cc('删除记录失败')
     })
 }

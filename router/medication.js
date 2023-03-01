@@ -12,6 +12,10 @@ router.get('/pendingMedications', medicationHandler.pendingMedications)
 
 router.post('/addMedication', medicationHandler.addMedication)
 
+router.post('/editMedicationStatus', medicationHandler.editMedicationStatus)
+
+router.post('/deleteMedication', medicationHandler.deleteMedication)
+
 
 //共享
 module.exports = router
