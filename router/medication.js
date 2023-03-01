@@ -8,6 +8,10 @@ const medicationHandler = require('../router_handler/medication_handler')
 
 router.get('/medications', medicationHandler.medications)
 
+router.get('/pendingMedications', medicationHandler.pendingMedications)
+
+router.post('/addMedication', medicationHandler.addMedication)
+
 
 //共享
 module.exports = router
