@@ -5,7 +5,7 @@ const logger = require('../utils/logger');
 
 // 获取药物数据
 exports.medications = (req, res) => {
-    const sqlQuery = `select * from Medication where idUser=? and Date(Date)=?`
+    const sqlQuery = `select * from Medication where idUser=? and Date(Date)=? ORDER BY TIME(date) ASC`
     db.query(sqlQuery, [req.user.idUser, req.query.date], (err, results) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
@@ -21,7 +21,7 @@ exports.medications = (req, res) => {
 
 // 获取待提醒药物数据
 exports.pendingMedications = (req, res) => {
-    const sqlQuery = `select * from Medication where idUser=? and Date>'${today.toDateTime()}'`
+    const sqlQuery = `select * from Medication where idUser=? and Date>'${today.toDateTime()}' ORDER BY TIME(date) ASC`
     db.query(sqlQuery, [req.user.idUser], (err, results) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
