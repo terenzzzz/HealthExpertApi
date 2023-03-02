@@ -58,14 +58,78 @@ exports.editMedicationStatus = (req, res) => {
     db.query(sqlUpdate, [req.body.status, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
         if (results.affectedRows === 1) {
-            logger.log("更新药物数据成功:", req.body)
+            logger.log("更新药物状态成功:", req.body)
             return res.send({
                 status: 200,
-                message:'更新药物数据成功'
+                message:'更新药物状态成功'
             })
         }
-        logger.log("更新药物数据失败", req.body)
-        return res.cc('更新药物数据失败')
+        logger.log("更新药物状态失败", req.body)
+        return res.cc('更新药物状态失败')
+    })
+}
+
+exports.editMedicationType = (req, res) => { 
+    const sqlUpdate = `update Medication set Type = ? where idUser = ? and id=?`
+    db.query(sqlUpdate, [req.body.type, req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新药物类型成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新药物类型成功'
+            })
+        }
+        logger.log("更新药物类型失败", req.body)
+        return res.cc('更新药物类型失败')
+    })
+}
+
+exports.editMedicationName = (req, res) => { 
+    const sqlUpdate = `update Medication set Name = ? where idUser = ? and id=?`
+    db.query(sqlUpdate, [req.body.name, req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新药物名称成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新药物名称成功'
+            })
+        }
+        logger.log("更新药物名称失败", req.body)
+        return res.cc('更新药物名称失败')
+    })
+}
+
+exports.editMedicationDose = (req, res) => { 
+    const sqlUpdate = `update Medication set Dose = ? where idUser = ? and id=?`
+    db.query(sqlUpdate, [req.body.dose, req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新药物剂量成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新药物剂量成功'
+            })
+        }
+        logger.log("更新药物剂量失败", req.body)
+        return res.cc('更新药物剂量失败')
+    })
+}
+
+exports.editMedicationDate = (req, res) => { 
+    const sqlUpdate = `update Medication set Date = ? where idUser = ? and id=?`
+    db.query(sqlUpdate, [req.body.date, req.user.idUser, req.body.id], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新药物时间成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新药物时间成功'
+            })
+        }
+        logger.log("更新药物时间失败", req.body)
+        return res.cc('更新药物时间失败')
     })
 }
 

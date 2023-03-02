@@ -14,6 +14,14 @@ router.post('/addMedication', medicationHandler.addMedication)
 
 router.post('/editMedicationStatus', medicationHandler.editMedicationStatus)
 
+router.post('/editMedicationType', medicationHandler.editMedicationType)
+
+router.post('/editMedicationName', medicationHandler.editMedicationName)
+
+router.post('/editMedicationDose', medicationHandler.editMedicationDose)
+
+router.post('/editMedicationDate', medicationHandler.editMedicationDate)
+
 router.post('/deleteMedication', medicationHandler.deleteMedication)
 
 
