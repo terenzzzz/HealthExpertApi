@@ -8,6 +8,8 @@ const medicationHandler = require('../router_handler/medication_handler')
 
 router.get('/medications', medicationHandler.medications)
 
+router.get('/medication', medicationHandler.medication)
+
 router.get('/pendingMedications', medicationHandler.pendingMedications)
 
 router.post('/addMedication', medicationHandler.addMedication)

@@ -19,6 +19,22 @@ exports.medications = (req, res) => {
     })
 }
 
+// 获取单个药物数据
+exports.medication = (req, res) => {
+    const sqlQuery = `select * from Medication where idUser=? and id=?`
+    db.query(sqlQuery, [req.user.idUser, req.query.id], (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length >= 0) {
+            logger.log("获取单个药物数据成功:", req.query.date)
+            return res.send({ status: 200, message: '获取单个药物数据成功', data: results})
+            
+        } else {
+            logger.log("获取单个药物数据失败！")
+            return res.cc('获取单个药物数据失败！', req.query.date)
+        }
+    })
+}
+
 // 获取待提醒药物数据
 exports.pendingMedications = (req, res) => {
     const sqlQuery = `select * from Medication where idUser=? and Date>'${today.toDateTime()}' ORDER BY TIME(date) ASC`
