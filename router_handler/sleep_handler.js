@@ -28,7 +28,6 @@ exports.addSleep = (req, res) => {
         idUser: req.user.idUser, Temperature: req.body.temperature, Pressure: req.body.pressure,
         Light: req.body.light, Humidity: req.body.humidity, StartTime: req.body.startTime, EndTime:today.toDateTime()
     }, function (err, results) {
-        logger.log("添加睡眠数据成功:", req.body)
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
             logger.log("添加睡眠数据成功:", req.body)
