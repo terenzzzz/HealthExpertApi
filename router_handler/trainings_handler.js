@@ -29,6 +29,7 @@ exports.updateTrainingOverall = (req, res) => {
     const sqlQueryforOverall = `select * from TrainingOverall where idUser=? and Date(Date)="${today.toDate()}"`
     db.query(sqlQueryforOverall, req.user.idUser, (err, results) => {
         if (err) return res.cc(err.message)
+        // 如果不存在当天数据就新建一行
         if (results.length == 0) {
             const sqlInsert = `insert into TrainingOverall set ?`
             db.query(sqlInsert, { idUser: req.user.idUser, Distance: 0, Speed: 0, Calories: 0, Duration: 0, Date: today.toDateTime() },
@@ -36,6 +37,7 @@ exports.updateTrainingOverall = (req, res) => {
                 if(err) return res.cc(err.message)
             })
         } 
+        // 如果存在就修改
         const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)="${today.toDate()}"`
         db.query(sqlQuery, req.user.idUser, (err, results) => {
             if (err) return res.cc(err.message)
@@ -47,8 +49,8 @@ exports.updateTrainingOverall = (req, res) => {
                     const startTime = new Date(obj.StartTime)
                     const endTime = new Date(obj.EndTime)
                     const duration = endTime.getTime() - startTime.getTime()
-                    const durationInMins = Math.round(duration / 60000)
-                    totalDuration += durationInMins
+                    const durationInHours = Math.round(duration / 3600000).toFixed(2)
+                    totalDuration += durationInHours
                 });
                 speed = speed/results.length
             }
