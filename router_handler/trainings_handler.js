@@ -49,8 +49,8 @@ exports.updateTrainingOverall = (req, res) => {
                     const startTime = new Date(obj.StartTime)
                     const endTime = new Date(obj.EndTime)
                     const duration = endTime.getTime() - startTime.getTime()
-                    const durationInHours = Math.round(duration / 3600000).toFixed(2)
-                    totalDuration += durationInHours
+                    const durationInMins = Math.round(duration / 60000)
+                    totalDuration += durationInMins
                 });
                 speed = speed/results.length
             }
