@@ -70,6 +70,8 @@ exports.addMedication = (req, res) => {
 }
 
 exports.editMedicationStatus = (req, res) => { 
+    // 0：pending
+    // 1: done
     const sqlUpdate = `update Medication set Status = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [req.body.status, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
