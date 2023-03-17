@@ -13,8 +13,8 @@ app.use(express.urlencoded({ extended: false }))
 
 // 响应数据的中间件 
 app.use(function (req, res, next) {
-    // status = 0 为成功； status = 1 为失败； 默认将 status 的值设置为 1，方便处理失败的情 况 
-    res.cc = function (err, status = 1) {
+    // status = 0 为成功； status = -1 为失败； 默认将 status 的值设置为 1，方便处理失败的情 况 
+    res.cc = function (err, status = -1) {
         res.send({
             // 状态 
             status,

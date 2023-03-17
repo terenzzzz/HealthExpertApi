@@ -17,9 +17,12 @@ const password = joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$
 // 8-16个字符，至少1个大写字母，1个小写字母和1个数字
 const confirmPassword = joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/)
 
+// 8-16个字符，至少1个大写字母，1个小写字母和1个数字
+const newPassword = joi.string().pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,16}$/)
+
 
 // 注册和登录表单的验证规则对象 
 exports.user_schema = {
     // 表示需要对 req.body 中的数据进行验证
-    body: { email, password, confirmPassword },
+    body: { email, password, confirmPassword,newPassword },
 }

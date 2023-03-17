@@ -3,6 +3,12 @@ const express = require('express')
 // 创建路由对象
 const router = express.Router()
 
+// 导入验证表单数据的中间件 
+const expressJoi = require('@escook/express-joi')
+// 导入需要的验证规则对象
+const { user_schema } = require('../schema/user')
+
+
 // 导入处理函数
 const userInfoHandler = require('../router_handler/userInfo_handler')
 
@@ -179,6 +185,8 @@ router.post('/editBmi', userInfoHandler.editBMI)
  * }
 */
 router.post('/editBodyFatRate', userInfoHandler.editBodyFatRate)
+
+router.post('/changePassword',expressJoi(user_schema), userInfoHandler.changePassword)
 
 // 向外共享路由对象 
 module.exports = router
