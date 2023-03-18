@@ -135,7 +135,12 @@ exports.editBodyFatRate = (req, res) => {
 
 exports.initUser = (req, res) => { 
     let bmi = bodyMetric.bmi(req.body.weight, req.body.height)
-    let gender = req.body.gender = "Male"? 1:0
+    let gender = 1
+    if (req.body.gender == "Male") {
+        gender = 1
+    } else {
+        gender = 0
+    }
     let bfw = bodyMetric.bodyFatRate(bmi, req.body.age, gender)
 
     const sqlUpdate = `update User set Name = ?,Gender=?,Age=?,Height=?,
