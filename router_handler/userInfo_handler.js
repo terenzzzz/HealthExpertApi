@@ -4,6 +4,8 @@ const logger = require('../utils/logger');
 // 导入加密模块
 const bcrypt = require('bcryptjs')
 
+const bodyMetric = require('../utils/bodyMetric')
+
 
 // 获取用户信息
 exports.userInfo = (req, res) => {
@@ -128,6 +130,28 @@ exports.editBodyFatRate = (req, res) => {
         }
         logger.log("更新体脂率失败")
         return res.cc('更新体脂率失败')
+    })
+}
+
+exports.initUser = (req, res) => { 
+    let bmi = bodyMetric.bmi(req.body.weight, req.body.height)
+    let gender = req.body.gender = "Male"? 1:0
+    let bfw = bodyMetric.bodyFatRate(bmi, req.body.age, gender)
+
+    const sqlUpdate = `update User set Name = ?,Gender=?,Age=?,Height=?,
+    Weight=?,Bmi=?,BodyFatRate=? where idUser = ?`
+    db.query(sqlUpdate, [req.body.name, req.body.gender, req.body.age,
+    req.body.height,req.body.weight,bmi,bfw,req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("初始化用户信息成功！",req.body)
+            return res.send({
+                status: 200,
+                message:'初始化用户信息成功'
+            })
+        }
+        logger.log("初始化用户信息失败")
+        return res.cc('初始化用户信息失败')
     })
 }
 

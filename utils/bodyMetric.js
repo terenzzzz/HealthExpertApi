@@ -6,6 +6,7 @@ function bmi(weight, height) {
 
 function bodyFatRate(bmi,age,gender) {
     // 体脂百分比 = (1.20 * BMI) + (0.23 * 年龄) - (10.8 * 性别) - 5.4
+    // （男生的值為 1，女生為 0）
     return (1.20 * bmi) + (0.23 * age) - (10.8 * gender) - 5.4
 }
 

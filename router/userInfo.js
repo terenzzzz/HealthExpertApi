@@ -186,6 +186,8 @@ router.post('/editBmi', userInfoHandler.editBMI)
 */
 router.post('/editBodyFatRate', userInfoHandler.editBodyFatRate)
 
+router.post('/initUser', userInfoHandler.initUser)
+
 router.post('/changePassword',expressJoi(user_schema), userInfoHandler.changePassword)
 
 // 向外共享路由对象 
