@@ -65,8 +65,8 @@ exports.updateWaterOverall = (req, res) => {
 
 // 获取用户喝水模块数据
 exports.waters = (req, res) => {
-    const sqlQuery = `select * from Waters where idUser=? and Date(Time)="${today.toDate()}"`
-    db.query(sqlQuery, req.user.idUser, (err, results) => {
+    const sqlQuery = `select * from Waters where idUser=? and Date(Time)=?`
+    db.query(sqlQuery, [req.user.idUser,req.query.date], (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
             logger.log("获取用户喝水信息成功！")
