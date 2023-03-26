@@ -20,8 +20,8 @@ exports.walksOverall = (req, res) => {
 }
 
 exports.walkSteps = (req, res) => {
-    const sqlQuery = `select * from WalkSteps where idUser=? and Date(Time)="${today.toDate()}"`
-    db.query(sqlQuery,req.user.idUser,  (err, results) => {
+    const sqlQuery = `select * from WalkSteps where idUser=? and Date(Time)=?`
+    db.query(sqlQuery,[req.user.idUser,req.query.date],  (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
             logger.log("获取用户当天行走步数信息成功！")
