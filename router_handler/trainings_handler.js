@@ -76,8 +76,8 @@ exports.updateTrainingOverall = (req, res) => {
 
 // 获取用户训练模块数据
 exports.trainings = (req, res) => {
-    const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)="${today.toDate()}"`
-    db.query(sqlQuery, req.user.idUser, (err, results) => {
+    const sqlQuery = `select * from Trainings where idUser=? and Date(EndTime)=?`
+    db.query(sqlQuery,[req.user.idUser,req.query.date], (err, results) => {
         if (err) return res.cc(err)
         if (results.length > 0) {
             logger.log("获取用户训练信息成功!")
