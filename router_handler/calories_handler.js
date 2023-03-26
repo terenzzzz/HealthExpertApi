@@ -72,8 +72,8 @@ exports.updateCaloriesOverall = (req, res) => {
 
 // 获取用户卡路里模块数据
 exports.calories = (req, res) => {
-    const sqlQuery = `select * from Calories where idUser=? and Date(Time)="${today.toDate()}"`
-    db.query(sqlQuery, req.user.idUser, (err, results) => {
+    const sqlQuery = `select * from Calories where idUser=? and Date(Time)=?`
+    db.query(sqlQuery, [req.user.idUser,req.query.date], (err, results) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
             logger.log("获取用户卡路里信息成功:")
