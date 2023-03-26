@@ -27,6 +27,7 @@ exports.updateTrainingOverall = (req, res) => {
 
     // Check if overallRecord exit
     const sqlQueryforOverall = `select * from TrainingOverall where idUser=? and Date(Date)="${today.toDate()}"`
+    console.log(today.toDate());
     db.query(sqlQueryforOverall, req.user.idUser, (err, results) => {
         if (err) return res.cc(err.message)
         // 如果不存在当天数据就新建一行
