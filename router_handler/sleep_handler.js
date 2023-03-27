@@ -4,18 +4,18 @@ const logger = require('../utils/logger');
 const today = require('../utils/today');
 
 
-// 获取最后一次睡眠数据
+// 获取当天结束的最后一次睡眠
 exports.sleep = (req, res) => {
-    const sqlQuery = `select * from Sleep where idUser=? ORDER BY StartTime DESC LIMIT 1`
-    db.query(sqlQuery, [req.user.idUser], (err, results) => {
+    const sqlQuery = `select * from Sleep where idUser=? and Date(EndTime)=? ORDER BY StartTime DESC LIMIT 1`
+    db.query(sqlQuery, [req.user.idUser,req.query.date], (err, results) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
-            logger.log("获取最后一次睡眠数据成功:")
-            return res.send({ status: 200, message: '获取最后一次睡眠数据成功！', data: results[0]})
+            logger.log("获取昨晚睡眠数据成功:")
+            return res.send({ status: 200, message: '获取昨晚睡眠数据成功', data: results[0]})
             
         } else {
-            logger.log("获取最后一次睡眠数据失败")
-            return res.cc('获取最后一次睡眠数据失败')
+            logger.log("获取昨晚睡眠数据失败")
+            return res.cc('获取昨晚睡眠数据失败')
             
         }
     })
