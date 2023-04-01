@@ -191,8 +191,8 @@ exports.editCaloriesCalories = (req, res) => {
 
 exports.editCaloriesTime = (req, res) => { 
     let time = req.body.time
-    let today = today.toDate();
-    let dateTime = today + " " + time + ":00"// 2023-03-11 08：00
+    let date = today.toDate();
+    let dateTime = date + " " + time + ":00"// 2023-03-11 08：00
     const sqlUpdate = `update Calories set Time = ? where idUser = ? and id=?`
     db.query(sqlUpdate, [dateTime, req.user.idUser, req.body.id], (err, results) => {
         if(err) return res.cc(err.message)
