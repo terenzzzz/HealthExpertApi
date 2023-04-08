@@ -164,7 +164,7 @@ exports.addLocations = (req, res) => {
         if (results.affectedRows >= 1) { 
             logger.log("定位添加成功!",req.body)
             return res.send({
-                status: 0,
+                status: 200,
                 message: '定位添加成功'
             })
         }
