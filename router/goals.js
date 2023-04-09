@@ -10,6 +10,8 @@ router.get('/goal', goalsHandler.goal)
 
 router.post('/initGoals', goalsHandler.initGoals)
 
+router.post('/editCalories', goalsHandler.editCalories)
+
 router.post('/editSteps', goalsHandler.editSteps)
 
 router.post('/editTraining', goalsHandler.editTraining)
