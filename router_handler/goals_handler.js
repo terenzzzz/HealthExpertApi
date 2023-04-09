@@ -1,9 +1,8 @@
 // 导入数据库操作模块
 const db = require('../db/index')
-const today = require('../utils/today');
 const logger = require('../utils/logger');
 
-// 添加药物提醒
+// 添加目标
 exports.addGoals = (req, res) => {
     const sqlInsert = `insert into Goals set ?`
     db.query(sqlInsert, {

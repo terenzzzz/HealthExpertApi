@@ -68,7 +68,7 @@ exports.waters = (req, res) => {
     const sqlQuery = `select * from Waters where idUser=? and Date(Time)=?`
     db.query(sqlQuery, [req.user.idUser,req.query.date], (err, results) => {
         if (err) return res.cc(err)
-        if (results.length > 0) {
+        if (results.length >= 0) {
             logger.log("获取用户喝水信息成功！")
             res.send({ status: 200, message: '获取用户喝水信息成功！', data: results})
         } else {
