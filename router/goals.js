@@ -6,6 +6,8 @@ const router = express.Router()
 //导入处理函数
 const goalsHandler = require('../router_handler/goals_handler')
 
+router.get('/goal', goalsHandler.goal)
+
 router.post('/initGoals', goalsHandler.initGoals)
 
 router.post('/editSteps', goalsHandler.editSteps)

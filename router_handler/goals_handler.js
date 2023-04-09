@@ -2,6 +2,23 @@
 const db = require('../db/index')
 const logger = require('../utils/logger');
 
+// 获取用户目标
+exports.goal = (req, res) => {
+    const sqlQuery = `select * from Goals where idUser=?`
+    db.query(sqlQuery, [req.user.idUser], (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length >= 0) {
+            logger.log("获取用户目标成功:", req.query.date)
+            return res.send({ status: 200, message: '获取用户目标成功', data: results[0]})
+            
+        } else {
+            logger.log("获取用户目标失败！")
+            return res.cc('获取用户目标失败！', req.query.date)
+            
+        }
+    })
+}
+
 // 添加目标
 exports.initGoals = (req, res) => {
     const sqlInsert = `insert into Goals set ?`
