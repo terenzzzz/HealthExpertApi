@@ -3,11 +3,11 @@ const db = require('../db/index')
 const logger = require('../utils/logger');
 
 // 添加目标
-exports.addGoals = (req, res) => {
+exports.initGoals = (req, res) => {
     const sqlInsert = `insert into Goals set ?`
     db.query(sqlInsert, {
-        idUser: req.user.idUser, Calories: req.body.calories, Steps: req.body.steps,
-        Training: req.body.training, Water: req.body.water, Sleep: req.body.sleep
+        idUser: req.user.idUser, Calories: 2400, Steps: 10000,
+        Training: 60, Water: 8000, Sleep: 8
     }, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
@@ -19,3 +19,87 @@ exports.addGoals = (req, res) => {
         }
     })
 }
+
+exports.editCalories = (req, res) => { 
+    const sqlUpdate = `update Goals set Calories = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.calories,req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新卡路里目标成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新卡路里目标成功'
+            })
+        }
+        logger.log("更新卡路里目标失败:", req.body)
+        return res.cc('更新卡路里目标失败')
+    })
+}
+
+exports.editSteps = (req, res) => { 
+    const sqlUpdate = `update Goals set Steps = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.steps,req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新步数目标成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新步数目标成功'
+            })
+        }
+        logger.log("更新步数目标失败:", req.body)
+        return res.cc('更新步数目标失败')
+    })
+}
+
+
+exports.editTraining = (req, res) => { 
+    const sqlUpdate = `update Goals set Training = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.training,req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新训练目标成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新训练目标成功'
+            })
+        }
+        logger.log("更新训练目标失败:", req.body)
+        return res.cc('更新训练目标失败')
+    })
+}
+
+
+exports.editWater = (req, res) => { 
+    const sqlUpdate = `update Goals set Water = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.water,req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新喝水目标成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新喝水目标成功'
+            })
+        }
+        logger.log("更新喝水目标失败:", req.body)
+        return res.cc('更新喝水目标失败')
+    })
+}
+
+
+exports.editSleep = (req, res) => { 
+    const sqlUpdate = `update Goals set Sleep = ? where idUser = ?`
+    db.query(sqlUpdate, [req.body.sleep,req.user.idUser], (err, results) => {
+        if(err) return res.cc(err.message)
+        if (results.affectedRows === 1) {
+            logger.log("更新睡眠目标成功:", req.body)
+            return res.send({
+                status: 200,
+                message:'更新睡眠目标成功'
+            })
+        }
+        logger.log("更新睡眠目标失败:", req.body)
+        return res.cc('更新睡眠目标失败')
+    })
+}
+
