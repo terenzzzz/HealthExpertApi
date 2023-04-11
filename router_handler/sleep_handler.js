@@ -21,7 +21,6 @@ exports.sleep = (req, res) => {
     })
 }
 
-// 获取最后一次睡眠数据
 exports.addSleep = (req, res) => {
     const sqlInsert = `insert into Sleep set ?`
     db.query(sqlInsert, {

@@ -6,12 +6,38 @@ const router = express.Router()
 //导入处理函数
 const caloriesHandler = require('../router_handler/calories_handler')
 
+
+/**
+ * @api {get} /my/caloriesOverall GetCaloriesOverall
+ * @apiGroup Calories
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiQuery {date} date
+ * 
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ * @apiSuccess {Array} data  Respond Data.
+ *
+*/
 router.get('/caloriesOverall', caloriesHandler.caloriesOverall)
+
+/**
+ * @api {post} /my/updateCaloriesOverall UpdateCaloriesOverall
+ * @apiGroup Calories
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * 
+ * @apiSuccess {Int} status Respond Status Code.
+ * @apiSuccess {String} message  Respond Message.
+ *
+*/
 router.post('/updateCaloriesOverall', caloriesHandler.updateCaloriesOverall)
 
 //获取用户卡路里记录
 /**
- * @api {post} /my/addCalories AddCalories
+ * @api {get} /my/calories getCalories
  * @apiGroup Calories
  *
  * @apiHeader {String} Authorization Users Login AWT Token.
@@ -19,32 +45,6 @@ router.post('/updateCaloriesOverall', caloriesHandler.updateCaloriesOverall)
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
  * @apiSuccess {Array} data  Respond Data.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "获取用户卡路里信息成功！",
-    "data": [
-        {
-            "id": 1,
-            "idUser": 14,
-            "Type": "Intake",
-            "Title": "Breakfast",
-            "Content": "Break",
-            "Calories": 288,
-            "Time": "2023-03-11T09:22:00.000Z"
-        },
-        {
-            "id": 2,
-            "idUser": 14,
-            "Type": "Burn",
-            "Title": "Walking",
-            "Content": "3000 steps",
-            "Calories": 162,
-            "Time": "2023-02-10T10:00:00.000Z"
-        },
-    ]
-  *}
 */
 router.get('/calories', caloriesHandler.calories)
 
@@ -61,22 +61,6 @@ router.get('/calories', caloriesHandler.calories)
  * @apiSuccess {String} message  Respond Message.
  * @apiSuccess {Array} data  Respond Data.
  *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "获取用户卡路里信息成功！",
-    "data": [
-        {
-            "id": 1,
-            "idUser": 14,
-            "Type": "Intake",
-            "Title": "Breakfast",
-            "Content": "Break",
-            "Calories": 288,
-            "Time": "2023-03-11T09:22:00.000Z"
-        }
-    ]
-  *}
 */
 router.get('/caloriesInfo', caloriesHandler.caloriesInfo)
 
@@ -96,12 +80,6 @@ router.get('/caloriesInfo', caloriesHandler.caloriesInfo)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新卡路里类型成功"
- * }
 */
 router.post('/addCalories', caloriesHandler.addCalories)
 
@@ -117,12 +95,6 @@ router.post('/addCalories', caloriesHandler.addCalories)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新卡路里类型成功"
- * }
 */
 router.post('/editCaloriesType', caloriesHandler.editCaloriesType)
 
@@ -137,12 +109,6 @@ router.post('/editCaloriesType', caloriesHandler.editCaloriesType)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新卡路里标题成功"
- * }
 */
 router.post('/editCaloriesTitle', caloriesHandler.editCaloriesTitle)
 
@@ -157,12 +123,6 @@ router.post('/editCaloriesTitle', caloriesHandler.editCaloriesTitle)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新卡路里内容成功"
- * }
 */
 router.post('/editCaloriesContent', caloriesHandler.editCaloriesContent)
 
@@ -177,12 +137,6 @@ router.post('/editCaloriesContent', caloriesHandler.editCaloriesContent)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新卡路里数值成功"
- * }
 */
 router.post('/editCaloriesCalories', caloriesHandler.editCaloriesCalories)
 
@@ -197,12 +151,6 @@ router.post('/editCaloriesCalories', caloriesHandler.editCaloriesCalories)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "更新卡路里时间成功"
- * }
 */
 router.post('/editCaloriesTime', caloriesHandler.editCaloriesTime)
 
@@ -217,12 +165,6 @@ router.post('/editCaloriesTime', caloriesHandler.editCaloriesTime)
  *
  * @apiSuccess {Int} status Respond Status Code.
  * @apiSuccess {String} message  Respond Message.
- *
- * @apiSuccessExample Success-Response:
- * {
-    "status": 200,
-    "message": "删除记录成功"
- * }
 */
 router.post('/deleteCalories', caloriesHandler.deleteCalories)
 
