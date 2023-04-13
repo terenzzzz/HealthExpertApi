@@ -5,7 +5,8 @@ const db = mysql.createPool({
     host: '46.101.60.239',
     user: 'server',
     password: '592592',
-    database:'AndroidAPI'
+    database: 'AndroidAPI',
+    timezone: 'utc'
 })
 
 module.exports = db

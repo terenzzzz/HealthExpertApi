@@ -77,6 +77,7 @@ exports.calories = (req, res) => {
         if (err) return res.cc(err)
         if (results.length >= 0) {
             logger.log("获取用户卡路里信息成功:")
+            console.log(results);
             res.send({ status: 200, message: '获取用户卡路里信息成功！', data: results})
         } else {
             logger.log("获取用户卡路里信息失败！")
