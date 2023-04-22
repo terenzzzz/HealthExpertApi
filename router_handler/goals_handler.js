@@ -23,8 +23,8 @@ exports.goal = (req, res) => {
 exports.initGoals = (req, res) => {
     const sqlInsert = `insert into Goals set ?`
     db.query(sqlInsert, {
-        idUser: req.user.idUser, Calories: 2400, Steps: 10000,
-        Training: 60, Water: 8000, Sleep: 8
+        idUser: req.user.idUser, Calories: 1800, Steps: 10000,
+        Training: 60, Water: 2000, Sleep: 8
     }, function (err, results) {
         if (err) return res.cc(err)
         if (results.affectedRows == 1) {
