@@ -186,8 +186,32 @@ router.post('/editBmi', userInfoHandler.editBMI)
 */
 router.post('/editBodyFatRate', userInfoHandler.editBodyFatRate)
 
+
+/**
+ * @api {post} /my/initUser initUser
+ * @apiGroup User
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ *  
+ * @apiBody {String} height 
+ * @apiBody {String} weight 
+ * @apiBody {String} age 
+ * @apiBody {String} gender 
+ * @apiBody {String} name 
+*/
 router.post('/initUser', userInfoHandler.initUser)
 
+
+/**
+ * @api {post} /my/changePassword changePassword
+ * @apiGroup User
+ *
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ * 
+ * @apiBody {String} password 
+ * @apiBody {String} newPassword 
+ *  
+*/
 router.post('/changePassword',expressJoi(user_schema), userInfoHandler.changePassword)
 
 // 向外共享路由对象 
