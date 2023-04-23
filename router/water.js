@@ -129,7 +129,5 @@ router.post('/editWatersTime', waterHandler.editWatersTime)
 */
 router.post('/deleteWaters', waterHandler.deleteWaters)
 
-
-
 // 向外共享路由对象 
 module.exports = router
