@@ -45,6 +45,7 @@ const walksRouter = require('./router/walks')
 const medicationRouter = require('./router/medication')
 const sleepRouter = require('./router/sleep')
 const goalsRouter = require('./router/goals')
+const heartRateRouter = require('./router/heartRate')
 
 app.use('/api', userRouter)
 app.use('/api', newsRouter)
@@ -56,6 +57,7 @@ app.use('/my', walksRouter)
 app.use('/my', medicationRouter)
 app.use('/my', sleepRouter)
 app.use('/my', goalsRouter)
+app.use('/my', heartRateRouter)
 
 
 // 错误级别中间件
