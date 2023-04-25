@@ -21,6 +21,22 @@ exports.sleep = (req, res) => {
     })
 }
 
+exports.lastFiveSleep = (req, res) => {
+    const sqlQuery = `select * from Sleep where idUser=? ORDER BY StartTime DESC LIMIT 5`
+    db.query(sqlQuery, [req.user.idUser,req.query.date], (err, results) => {
+        if (err) return res.cc(err)
+        if (results.length >= 0) {
+            logger.log("获取最近五次睡眠成功:")
+            return res.send({ status: 200, message: '获取最近五次睡眠成功', data: results})
+            
+        } else {
+            logger.log("获取最近五次睡眠失败")
+            return res.cc('获取最近五次睡眠失败')
+            
+        }
+    })
+}
+
 exports.addSleep = (req, res) => {
     const sqlInsert = `insert into Sleep set ?`
     db.query(sqlInsert, {
@@ -37,3 +53,4 @@ exports.addSleep = (req, res) => {
         }
     })
 }
+

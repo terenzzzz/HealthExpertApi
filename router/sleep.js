@@ -16,6 +16,16 @@ const sleepHandler = require('../router_handler/sleep_handler')
 */
 router.get('/sleep', sleepHandler.sleep)
 
+
+/**
+ * @api {post} /my/lastFiveSleep LastFiveSleep
+ * @apiGroup Sleep
+ * 
+ * @apiHeader {String} Authorization Users Login AWT Token.
+ * 
+*/
+router.get('/lastFiveSleep', sleepHandler.lastFiveSleep)
+
 /**
  * @api {post} /my/addSleep AddSleep
  * @apiGroup Sleep
