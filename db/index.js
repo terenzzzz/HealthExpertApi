@@ -2,8 +2,8 @@
 const mysql = require('mysql')
 
 const db = mysql.createPool({
-    host: '46.101.60.239',
-    user: 'server',
+    host: '47.106.139.89',
+    user: 'root',
     password: '592592',
     database: 'AndroidAPI',
     // timezone: 'utc'
